@@ -1,10 +1,13 @@
 :root {
-  --bg: #fbfbf8;
-  --ink: #101a17;
-  --muted: #4f5d57;
-  --line: #d9ded9;
-  --link: #123f37;
-  --hairline: #edf0ec;
+  --bg: #faf7ef;
+  --surface: #fffdf7;
+  --ink: #0f1f1a;
+  --muted: #5f6b64;
+  --line: #d8d4c8;
+  --link: #0d463c;
+  --accent: #9a6a2f;
+  --accent-soft: #efe4cf;
+  --hairline: #ebe6d8;
 }
 
 * {
@@ -18,7 +21,9 @@ html {
 body {
   margin: 0;
   color: var(--ink);
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 50% -12rem, rgba(154, 106, 47, 0.12), transparent 28rem),
+    var(--bg);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -29,18 +34,31 @@ a {
   color: var(--link);
 }
 
+a:hover {
+  color: #08332c;
+}
+
+a:focus-visible,
+summary:focus-visible {
+  outline: 3px solid rgba(154, 106, 47, 0.28);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 .main-content {
-  width: min(680px, calc(100% - 2.5rem));
-  margin: 2.25rem auto;
+  width: min(760px, calc(100% - 3rem));
+  margin: 3rem auto;
+  padding: 0.35rem 0 2.5rem;
 }
 
 .main-content h1 {
-  margin: 0 0 1.35rem;
+  margin: 0 0 1.6rem;
   color: var(--ink);
-  font-size: clamp(1.75rem, 4.5vw, 2.35rem);
-  font-weight: 720;
-  letter-spacing: -0.03em;
-  line-height: 1;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 4.8vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
   text-align: center;
 }
 
@@ -58,10 +76,18 @@ a {
 
 .post-list li {
   display: grid;
-  grid-template-columns: 7.5rem minmax(0, 1fr);
-  gap: 1.35rem;
-  padding: 1rem 0;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 1.05rem 0;
   border-top: 1px solid var(--line);
+  transition: background 160ms ease, padding-left 160ms ease, padding-right 160ms ease;
+}
+
+.post-list li:hover {
+  padding-left: 0.45rem;
+  padding-right: 0.45rem;
+  background: rgba(255, 253, 247, 0.72);
 }
 
 .post-list li:last-child {
@@ -73,16 +99,16 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--link);
-  font-size: 1rem;
-  font-weight: 560;
+  font-size: 1.05rem;
+  font-weight: 650;
   line-height: 1.45;
   letter-spacing: -0.01em;
 }
 
 .post-list time {
   color: var(--ink);
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 0.98rem;
+  font-weight: 760;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
 }
@@ -95,22 +121,22 @@ a {
 
 .back-link {
   display: inline-block;
-  margin-bottom: 1rem;
-  color: var(--muted);
+  margin-bottom: 1.1rem;
+  color: var(--link);
   font-size: 0.92rem;
-  font-weight: 650;
+  font-weight: 720;
 }
 
 .digest-post {
-  max-width: 680px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
 .digest-title {
   text-align: left !important;
-  margin-bottom: 1.5rem !important;
-  font-size: clamp(1.75rem, 4vw, 2.45rem) !important;
-  line-height: 1.12 !important;
+  margin-bottom: 1.6rem !important;
+  font-size: clamp(2rem, 4.2vw, 2.85rem) !important;
+  line-height: 1.08 !important;
 }
 
 .digest-post > h3 {
@@ -126,10 +152,10 @@ a {
 .digest-points > li {
   position: relative;
   margin: 0;
-  padding: 1rem 0 1rem 1.15rem;
+  padding: 1rem 0 1rem 1.25rem;
   border-top: 1px solid var(--hairline);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.04rem;
+  line-height: 1.66;
 }
 
 .digest-points > li::before {
@@ -137,14 +163,14 @@ a {
   position: absolute;
   left: 0;
   top: 1.65rem;
-  width: 0.38rem;
-  height: 0.38rem;
+  width: 0.42rem;
+  height: 0.42rem;
   border-radius: 999px;
-  background: var(--link);
+  background: var(--accent);
 }
 
 .digest-post strong {
-  color: var(--ink);
+  color: var(--link);
   font-weight: 760;
 }
 
@@ -157,7 +183,7 @@ a {
 .source-note h2 {
   margin: 0 0 0.45rem;
   font-size: 0.92rem;
-  color: var(--muted);
+  color: var(--accent);
   font-weight: 720;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -166,6 +192,7 @@ a {
 .source-note p {
   margin: 0;
   font-size: 0.98rem;
+  color: var(--muted);
 }
 
 .tp-sources {
@@ -175,10 +202,10 @@ a {
 }
 
 .tp-sources summary {
-  color: var(--muted);
+  color: var(--ink);
   cursor: pointer;
   font-size: 0.96rem;
-  font-weight: 620;
+  font-weight: 700;
 }
 
 .source-list {
@@ -191,12 +218,13 @@ a {
   padding: 0.2rem 0;
   font-size: 0.94rem;
   line-height: 1.45;
+  color: var(--muted);
 }
 
 pre {
   overflow-x: auto;
   padding: 1rem;
-  background: #f0e4ca;
+  background: var(--accent-soft);
   border: 1px solid var(--line);
   border-radius: 8px;
 }
@@ -208,42 +236,58 @@ code {
 @media (max-width: 760px) {
   body {
     font-size: 16px;
+    background: var(--bg);
   }
 
   .main-content {
-    width: min(100% - 2rem, 34rem);
-    margin: 1.4rem auto 2rem;
+    width: min(100% - 1.5rem, 34rem);
+    margin: 1.15rem auto 2rem;
+    padding-bottom: 1.5rem;
   }
 
   .main-content h1 {
-    margin-bottom: 1.15rem;
-    font-size: clamp(1.85rem, 9vw, 2.35rem);
+    margin-bottom: 1.05rem;
+    font-size: clamp(2rem, 10vw, 2.65rem);
     text-align: center;
   }
 
   .post-list li {
     grid-template-columns: 1fr;
-    gap: 0.45rem;
-    padding: 0.95rem 0;
+    gap: 0.38rem;
+    padding: 1rem 0;
+  }
+
+  .post-list li:hover {
+    padding-left: 0;
+    padding-right: 0;
+    background: transparent;
   }
 
   .post-list a {
-    font-size: 1rem;
-    line-height: 1.48;
+    font-size: 1.04rem;
+    line-height: 1.5;
     white-space: normal;
   }
 
   .post-list time {
     font-size: 0.95rem;
+    color: var(--ink);
   }
 
   .digest-title {
-    font-size: clamp(1.55rem, 8vw, 2rem) !important;
+    font-size: clamp(1.75rem, 8.5vw, 2.25rem) !important;
+    margin-bottom: 1.15rem !important;
   }
 
   .digest-points > li {
-    padding-top: 0.9rem;
-    padding-bottom: 0.9rem;
-    font-size: 0.98rem;
+    padding-top: 0.95rem;
+    padding-bottom: 0.95rem;
+    font-size: 1rem;
+    line-height: 1.62;
+  }
+
+  .source-note,
+  .tp-sources {
+    margin-top: 1.15rem;
   }
 }
