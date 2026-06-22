@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import os
 import re
@@ -192,7 +193,9 @@ Rules:
 - Group related items where possible.
 - Prefer policy/public-service meaning over headline wording.
 - Keep every point factual and avoid adding facts not present in the headlines.
-- Include source links inline when useful.
+- Do not include a heading.
+- Do not include inline links in the bullet points.
+- Format each point as: - **Short topic:** one concise sentence.
 
 PIB page: {PIB_URL}
 
@@ -235,40 +238,106 @@ def plain_text(markdown: str) -> str:
 def one_line_summary(summary: str, items: list[NewsItem]) -> str:
     for line in summary.splitlines():
         line = line.strip()
-        if not line or line.startswith("<"):
+        if not line or line.startswith("<") or line.startswith("#"):
             continue
         line = re.sub(r"^[-*]\s+", "", line)
         line = re.sub(r"^\d+\.\s+", "", line)
         text = plain_text(line)
+        if "digest" in text.lower() and len(text) < 60:
+            continue
         if text and len(text) > 20:
             return text[:157].rstrip() + "..." if len(text) > 160 else text
     return plain_text(items[0].title) if items else "PIB daily brief"
+
+
+def post_title(summary: str, items: list[NewsItem]) -> str:
+    teaser = one_line_summary(summary, items)
+    if ":" in teaser:
+        title = teaser.split(":", 1)[0]
+        if 8 <= len(title) <= 70:
+            return title
+    words = teaser.split()
+    return " ".join(words[:9]).rstrip(".,;:") if words else "PIB Brief"
 
 
 def yaml_escape(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+def inline_markdown_to_html(text: str) -> str:
+    placeholders: list[str] = []
+
+    def link_replacer(match: re.Match[str]) -> str:
+        label = html.escape(match.group(1))
+        url = html.escape(match.group(2), quote=True)
+        placeholders.append(f'<a href="{url}">{label}</a>')
+        return f"@@LINK{len(placeholders) - 1}@@"
+
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link_replacer, text)
+    escaped = html.escape(text)
+    escaped = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
+    for index, replacement in enumerate(placeholders):
+        escaped = escaped.replace(f"@@LINK{index}@@", replacement)
+    return escaped
+
+
+def summary_to_html(summary: str) -> str:
+    items: list[str] = []
+    paragraphs: list[str] = []
+    for raw_line in summary.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("<") or line.startswith("#"):
+            continue
+        line = re.sub(r"^\d+\.\s+", "- ", line)
+        if line.startswith(("- ", "* ")):
+            items.append(line[2:].strip())
+        else:
+            paragraphs.append(line)
+
+    parts: list[str] = []
+    if paragraphs:
+        parts.extend(f"<p>{inline_markdown_to_html(line)}</p>" for line in paragraphs)
+    if items:
+        parts.append('<ul class="digest-points">')
+        parts.extend(f"  <li>{inline_markdown_to_html(item)}</li>" for item in items)
+        parts.append("</ul>")
+    return "\n".join(parts)
+
+
+def sources_to_html(items: list[NewsItem]) -> str:
+    lines = ['<ul class="source-list">']
+    for item in items[:10]:
+        title = html.escape(item.title)
+        url = html.escape(item.url, quote=True)
+        lines.append(f'  <li><a href="{url}">{title}</a></li>')
+    lines.append("</ul>")
+    return "\n".join(lines)
+
+
 def build_post(summary: str, items: list[NewsItem], used_ai: bool) -> Path:
     POSTS.mkdir(parents=True, exist_ok=True)
     now = datetime.now(timezone.utc)
     post_path = POSTS / f"{now.date().isoformat()}-pib-digest.md"
-    source_list = "\n".join(f"- [{item.title}]({item.url})" for item in items[:10])
+    source_list = sources_to_html(items)
     ai_note = "Gemini-assisted summary" if used_ai else "Direct headline digest"
     teaser = one_line_summary(summary, items)
+    title = post_title(summary, items)
     content = f"""---
 layout: default
-title: PIB Digest - {now.date().isoformat()}
+title: {yaml_escape(title)}
 date: {now.isoformat()}
 summary: {yaml_escape(teaser)}
 ---
 
-<p class="post-meta">{now.date().isoformat()} · {ai_note}</p>
+<article class="digest-post">
+  <a class="back-link" href="{{{{ '/' | relative_url }}}}">PIB Brief</a>
+  <p class="post-meta">{now.date().isoformat()} · {ai_note}</p>
+  <h1 class="digest-title">{title}</h1>
 
-{summary}
+{summary_to_html(summary)}
 
-<section class="tp-section">
-  <p class="tp-eyebrow">Source Page</p>
+<section class="source-note">
+  <h2>Source</h2>
   <p>Generated from <a href="{PIB_URL}">PIB regional news listing</a>.</p>
 </section>
 
@@ -278,6 +347,7 @@ summary: {yaml_escape(teaser)}
 {source_list}
 
 </details>
+</article>
 """
     post_path.write_text(content, encoding="utf-8")
     return post_path
