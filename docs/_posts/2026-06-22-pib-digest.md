@@ -1,13 +1,8 @@
 ---
 layout: default
 title: "Public Health and Welfare"
-<<<<<<< HEAD
-date: 2026-06-22T14:55:55.239446+00:00
-summary: "Public Health and Welfare: India has reached a significant milestone of 5 lakh organ donation pledges, while the government has officially announced the Haj..."
-=======
-date: 2026-06-22T14:38:27.345203+00:00
-summary: "Public health, economic growth, supply chain resilience, trade policy, governance, and official engagement updates from PIB."
->>>>>>> 277c0e7 (Add clickable source links to digest points)
+date: 2026-06-22T15:10:54.990016+00:00
+summary: "Public Health and Welfare: India has reached a significant milestone with 5 lakh organ donation pledges, while the government has officially announced the Ha..."
 ---
 
 <article class="digest-post">
@@ -15,19 +10,11 @@ summary: "Public health, economic growth, supply chain resilience, trade policy,
   <p class="post-meta">2026-06-22 · Gemini-assisted summary</p>
 
 <ul class="digest-points">
-<<<<<<< HEAD
-  <li><strong>Public Health and Welfare:</strong> India has reached a significant milestone of 5 lakh organ donation pledges, while the government has officially announced the Haj Policy for 2027.</li>
-  <li><strong>Economic and Industrial Growth:</strong> India has emerged as the world’s leading ship recycling nation, and the government is implementing reforms to enhance the country&#x27;s global competitiveness in the tourism sector.</li>
-  <li><strong>Supply Chain and Agriculture:</strong> Fertilizer shipments have successfully navigated the Strait of Hormuz to ensure supply chain resilience, alongside ongoing monitoring of Kharif crop coverage.</li>
-  <li><strong>Environmental and Trade Policy:</strong> A national Chintan Shivir has been launched to deliberate on environment-related trade measures and Free Trade Agreements.</li>
-  <li><strong>Governance and Official Engagements:</strong> Recent official activities include the President’s visit to Kuno National Park, the administration of an oath to a new Rajya Sabha member, and the release of the latest Indian Telecom Services performance report.</li>
-=======
-  <li><strong>Public Health and Welfare:</strong> India has reached a significant milestone of 5 lakh organ donation pledges, while the government has officially announced the Haj Policy for 2027.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276810">Organ donation</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276793">Haj policy</a></span></li>
-  <li><strong>Economic and Industrial Growth:</strong> India has emerged as the world’s leading ship recycling nation, and the government is implementing reforms to enhance the country’s global competitiveness in the tourism sector.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276739">Ship recycling</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276789">Tourism reforms</a></span></li>
-  <li><strong>Supply Chain and Agriculture:</strong> Fertilizer shipments have successfully navigated the Strait of Hormuz to ensure supply chain resilience, alongside ongoing monitoring of Kharif crop coverage.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276792">Fertilizer supply</a></span></li>
-  <li><strong>Environmental and Trade Policy:</strong> A national Chintan Shivir has been launched to deliberate on environment-related trade measures and Free Trade Agreements.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276745">Trade measures</a></span></li>
-  <li><strong>Governance and Official Engagements:</strong> Recent official activities include the President’s visit to Kuno National Park, the administration of an oath to a new Rajya Sabha member, and the release of the latest Indian Telecom Services performance report.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276382">Kuno visit</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276761">Rajya Sabha oath</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276780">Telecom report</a></span></li>
->>>>>>> 277c0e7 (Add clickable source links to digest points)
+  <li><strong>Public Health and Welfare:</strong> India has reached a significant milestone with 5 lakh organ donation pledges, while the government has officially announced the Haj Policy for 2027.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276810">Source 3</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276793">Source 4</a></span></li>
+  <li><strong>Economic and Industrial Growth:</strong> India has emerged as the world’s leading ship recycling nation in 2025, and the government is actively pursuing reforms to enhance the country&#x27;s global competitiveness in the tourism sector.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276789">Source 6</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276739">Source 11</a></span></li>
+  <li><strong>Logistics and Trade:</strong> Four fertilizer ships have successfully navigated the Strait of Hormuz to ensure resilient supply chains, while a national conference has commenced to discuss environment-related trade measures and free trade agreements.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276792">Source 5</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276745">Source 10</a></span></li>
+  <li><strong>Infrastructure and Agriculture:</strong> The government has released the latest telecom performance indicator report and provided an update on the progress of area coverage for Kharif crops.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276780">Source 7</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276736">Source 12</a></span></li>
+  <li><strong>National Events and Governance:</strong> The President of India visited Kuno National Park, and the Rajya Sabha Chairman administered the oath of office to Shri Neeraj Dangi.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276382">Source 1</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276761">Source 9</a></span></li>
 </ul>
 
 <section class="source-note">
