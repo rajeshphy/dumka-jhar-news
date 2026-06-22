@@ -332,7 +332,6 @@ summary: {yaml_escape(teaser)}
 <article class="digest-post">
   <a class="back-link" href="{{{{ '/' | relative_url }}}}">PIB Brief</a>
   <p class="post-meta">{now.date().isoformat()} · {ai_note}</p>
-  <h1 class="digest-title">{title}</h1>
 
 {summary_to_html(summary)}
 

@@ -132,13 +132,6 @@ summary:focus-visible {
   margin: 0 auto;
 }
 
-.digest-title {
-  text-align: left !important;
-  margin-bottom: 1.6rem !important;
-  font-size: clamp(2rem, 4.2vw, 2.85rem) !important;
-  line-height: 1.08 !important;
-}
-
 .digest-post > h3 {
   display: none;
 }
@@ -272,11 +265,6 @@ code {
   .post-list time {
     font-size: 0.95rem;
     color: var(--ink);
-  }
-
-  .digest-title {
-    font-size: clamp(1.75rem, 8.5vw, 2.25rem) !important;
-    margin-bottom: 1.15rem !important;
   }
 
   .digest-points > li {

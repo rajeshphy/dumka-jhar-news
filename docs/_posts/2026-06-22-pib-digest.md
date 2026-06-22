@@ -8,7 +8,6 @@ summary: "PRESIDENT OF INDIA VISITS KUNO NATIONAL PARK"
 <article class="digest-post">
   <a class="back-link" href="{{ '/' | relative_url }}">PIB Brief</a>
   <p class="post-meta">2026-06-22 · Direct headline digest</p>
-  <h1 class="digest-title">PRESIDENT OF INDIA VISITS KUNO NATIONAL PARK</h1>
 
 <ul class="digest-points">
   <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276382">PRESIDENT OF INDIA VISITS KUNO NATIONAL PARK</a></li>
