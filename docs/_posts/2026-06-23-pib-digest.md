@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Haj Pilgrimage"
-date: 2026-06-23T11:40:08.116502+00:00
-summary: "Haj Pilgrimage: The Haj Committee of India has officially announced the Haj Policy for 2027 and is now accepting applications from prospective pilgrims. Sour..."
+title: "National Awards and Diplomacy"
+date: 2026-06-23T16:45:52.650147+00:00
+summary: "National Awards and Diplomacy: The President of India conferred the Padma Awards 2026 during the Civil Investiture CeremonyII, while the Prime Minister engag..."
 ---
 
 <article class="digest-post">
@@ -10,11 +10,11 @@ summary: "Haj Pilgrimage: The Haj Committee of India has officially announced th
   <p class="post-meta">2026-06-23 · Gemini-assisted summary</p>
 
 <ul class="digest-points">
-  <li><strong>Haj Pilgrimage:</strong> The Haj Committee of India has officially announced the Haj Policy for 2027 and is now accepting applications from prospective pilgrims.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276793">Source 1</a></span></li>
-  <li><strong>Critical Mineral Mission:</strong> India is advancing its resource security strategy by auctioning 56 critical mineral blocks and 11 exploration licenses.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277041">Source 2</a></span></li>
-  <li><strong>Youth and National Engagement:</strong> The MY Bharat platform is launching nationwide ‘Vande Mataram Camps’ to promote national unity, while the Prime Minister held an interactive session with the 2024 batch of IAS officer trainees.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277018">Source 3</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276975">Source 11</a></span></li>
-  <li><strong>Infrastructure and Policy Development:</strong> The NHAI has partnered with NCAER to study transportation economics, and the Department of Pharmaceuticals is seeking public feedback on proposed regulatory amendments.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276997">Source 8</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276991">Source 9</a></span></li>
-  <li><strong>Defense and International Relations:</strong> The Indian Navy is conducting diplomatic visits to Vietnam, while the Raksha Rajya Mantri chaired a high-level committee meeting focused on defense information technology.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277010">Source 5</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277006">Source 6</a></span></li>
+  <li><strong>National Awards and Diplomacy:</strong> The President of India conferred the Padma Awards 2026 during the Civil Investiture Ceremony-II, while the Prime Minister engaged in high-level security discussions and international diplomatic exchanges.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277271">Source 2</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277220">Source 5</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277217">Source 6</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277216">Source 7</a></span></li>
+  <li><strong>Agricultural and Energy Policy:</strong> The government is actively reviewing Kharif season preparedness in light of El Niño concerns and has reaffirmed that the national ethanol blending program is subject to rigorous scientific validation and monitoring.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277210">Source 8</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277178">Source 11</a></span></li>
+  <li><strong>Economic and Trade Initiatives:</strong> NITI Aayog released the eighth edition of its &quot;Trade Watch Quarterly,&quot; and the National Traders’ Welfare Board met to discuss strategies for strengthening digital adoption among the trading community.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277232">Source 4</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277207">Source 9</a></span></li>
+  <li><strong>Administrative and Legal Services:</strong> The Office of the Chief Labour Commissioner organized a special court camp to address labor grievances, while the Department of Administrative Reforms and Public Grievances (DARPG) published its 49th monthly report on public service delivery.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277265">Source 3</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277163">Source 12</a></span></li>
+  <li><strong>Human Rights and Governance:</strong> The National Human Rights Commission (NHRC) participated in a consultative meeting with state bodies to discuss human rights frameworks, alongside the Prime Minister’s recent address at the Republic Summit 2026.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276888">Source 1</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277203">Source 10</a></span></li>
 </ul>
 
 <section class="source-note">
@@ -26,16 +26,16 @@ summary: "Haj Pilgrimage: The Haj Committee of India has officially announced th
 <summary>Headlines considered</summary>
 
 <ul class="source-list">
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276793">Haj Policy 2027 announced; Haj Committee of India invites applications from prospective pilgrims</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277041">India’s Critical Mineral Mission Gains Momentum: 56 Critical Mineral Blocks and 11 Ex...</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277018">MY Bharat to Organise ‘Vande Mataram Camp’ Across the Country to Foster National Unit...</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277016">Under the Leadership of Prime Minister Shri Narendra Modi, International Day of Yoga ...</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277010">Indian Navy&#x27;s Eastern Fleet Ships Udaygiri and Kavaratti Arrive at Ho Chi Minh City, ...</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277006">Raksha Rajya Mantri Chaired the 15th Defence Information Technology Consultative Comm...</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276998">Prime Minister pays homage to Dr. Syama Prasad Mookerjee on his Balidan Diwas, shares...</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276997">Department of Pharmaceuticals Invites Stakeholder Comments on Proposed Amendments to ...</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276991">NHAI Signs MoU with NCAER to Establish Centre for Economics of Transportation, Mobili...</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276983">7th Edition of the Marshal of the Air Force Arjan Singh Memorial Hockey Tournament-20...</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276888">Prime Minister shares highlights of his address at Republic Summit 2026</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277271">Prime Minister attends Civil Investiture Ceremony-II at Rashtrapati Bhavan</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277265">The office of Chief Labour Commissioner (Central) Organizes Special Court Camp at RVN...</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277232">NITI Aayog launches Eighth Edition of “Trade Watch Quarterly”</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277220">President of India Presents Padma Awards 2026 at the Civil Investiture Ceremony-ii</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277217">Prime Minister congratulates Prime Minister Abiy Ahmed Ali and Prosperity Party on el...</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277216">Prime Minister Shri Narendra Modi meets National Security Advisors and senior securit...</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277210">Ethanol blending programme is scientifically validated and closely monitored by the g...</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277207">National Traders’ Welfare Board Holds 10th Meeting in Hybrid Mode, Strengthening Digi...</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277203">NHRC, India participates in the First Consultative Meeting of NHRIs, State Bodies and...</a></li>
 </ul>
 
 </details>
