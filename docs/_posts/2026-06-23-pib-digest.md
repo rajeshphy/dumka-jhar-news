@@ -1,13 +1,14 @@
 ---
 layout: default
-title: "National Awards and Diplomacy"
+title: "Awards, Diplomacy and Policy Updates"
 date: 2026-06-23T16:45:52.650147+00:00
 summary: "National Awards and Diplomacy: The President of India conferred the Padma Awards 2026 during the Civil Investiture CeremonyII, while the Prime Minister engag..."
+run_time_ist: "10:15PM"
 ---
 
 <article class="digest-post">
   <a class="back-link" href="{{ '/' | relative_url }}">PIB Brief</a>
-  <p class="post-meta">2026-06-23 · Gemini-assisted summary</p>
+  <p class="post-meta">Gemini Summary: 10:15PM</p>
 
 <ul class="digest-points">
   <li><strong>National Awards and Diplomacy:</strong> The President of India conferred the Padma Awards 2026 during the Civil Investiture Ceremony-II, while the Prime Minister engaged in high-level security discussions and international diplomatic exchanges.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277271">Source 2</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277220">Source 5</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277217">Source 6</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277216">Source 7</a></span></li>

@@ -17,11 +17,13 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 
 PIB_URL = "https://www.pib.gov.in/indexd.aspx?reg=48&lang=1"
 GEMINI_API_ROOT = "https://generativelanguage.googleapis.com/v1beta/models"
 DEFAULT_GEMINI_MODEL = "gemini-3.1-flash-lite"
+IST = ZoneInfo("Asia/Kolkata")
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 POSTS = DOCS / "_posts"
@@ -188,6 +190,8 @@ def gemini_summary(items: list[NewsItem], api_key: str) -> str:
 Convert these PIB regional news headlines into an English Markdown digest.
 
 Rules:
+- First line must be a suitable one-line digest title using this exact format:
+  TITLE: concise title covering the whole digest
 - Output no more than 5 significant bullet points.
 - Use clear, readable English.
 - Group related items where possible.
@@ -197,6 +201,7 @@ Rules:
 - Do not include inline links in the bullet points.
 - End every bullet with source numbers using this exact format: Sources: [1], [3]
 - Format each point as: - **Short topic:** one concise sentence. Sources: [1], [3]
+- The TITLE must not simply copy the first bullet topic.
 
 PIB page: {PIB_URL}
 
@@ -253,6 +258,7 @@ def readable_title(text: str) -> str:
 
 
 def one_line_summary(summary: str, items: list[NewsItem]) -> str:
+    _, summary = split_digest_title(summary)
     for line in summary.splitlines():
         line = line.strip()
         if not line or line.startswith("<") or line.startswith("#"):
@@ -268,13 +274,61 @@ def one_line_summary(summary: str, items: list[NewsItem]) -> str:
 
 
 def post_title(summary: str, items: list[NewsItem]) -> str:
+    explicit_title, _ = split_digest_title(summary)
+    if explicit_title:
+        return explicit_title
+
+    topics = digest_topics(summary)
+    if len(topics) >= 2:
+        title = ", ".join(topics[:2])
+        if len(topics) >= 3:
+            title = f"{title} and {topics[2]}"
+        return title[:76].rstrip(" ,;:") if len(title) > 78 else title
+
     teaser = one_line_summary(summary, items)
-    if ":" in teaser:
-        title = teaser.split(":", 1)[0]
-        if 8 <= len(title) <= 70:
-            return title
     words = teaser.split()
-    return " ".join(words[:9]).rstrip(".,;:") if words else "PIB Brief"
+    return " ".join(words[:8]).rstrip(".,;:") if words else "PIB Brief"
+
+
+def split_digest_title(summary: str) -> tuple[str, str]:
+    lines = summary.splitlines()
+    remaining: list[str] = []
+    title = ""
+    for line in lines:
+        stripped = line.strip()
+        match = re.match(r"^TITLE\s*:\s*(.+)$", stripped, flags=re.I)
+        if match and not title:
+            title = clean_title(match.group(1))
+            continue
+        remaining.append(line)
+    return title, "\n".join(remaining).strip()
+
+
+def clean_title(value: str) -> str:
+    title = plain_text(value)
+    title = re.sub(r"^(PIB\s+)?(Daily\s+)?(Brief|Digest)\s*[:\-]\s*", "", title, flags=re.I)
+    title = clean_text(title).strip(" .,:;-")
+    if not title:
+        return "PIB Brief"
+    if len(title) > 80:
+        title = " ".join(title.split()[:10]).rstrip(".,;:")
+    return title
+
+
+def digest_topics(summary: str) -> list[str]:
+    _, body = split_digest_title(summary)
+    topics: list[str] = []
+    for line in body.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith(("- ", "* ")):
+            continue
+        match = re.match(r"^[-*]\s+\*\*([^*:]+):?\*\*\s*:?", stripped)
+        if not match:
+            continue
+        topic = clean_title(match.group(1))
+        if topic and topic.lower() not in {item.lower() for item in topics}:
+            topics.append(topic)
+    return topics
 
 
 def yaml_escape(value: str) -> str:
@@ -349,6 +403,7 @@ def inline_markdown_to_html(text: str) -> str:
 
 
 def summary_to_html(summary: str, items: list[NewsItem]) -> str:
+    _, summary = split_digest_title(summary)
     bullet_items: list[str] = []
     paragraphs: list[str] = []
     for raw_line in summary.splitlines():
@@ -389,9 +444,11 @@ def sources_to_html(items: list[NewsItem]) -> str:
 def build_post(summary: str, items: list[NewsItem], used_ai: bool) -> Path:
     POSTS.mkdir(parents=True, exist_ok=True)
     now = datetime.now(timezone.utc)
+    now_ist = now.astimezone(IST)
     post_path = POSTS / f"{now.date().isoformat()}-pib-digest.md"
     source_list = sources_to_html(items)
-    ai_note = "Gemini-assisted summary" if used_ai else "Direct headline digest"
+    run_time = now_ist.strftime("%-I:%M%p")
+    ai_note = f"Gemini Summary: {run_time}" if used_ai else f"Headline Digest: {run_time}"
     teaser = one_line_summary(summary, items)
     title = post_title(summary, items)
     content = f"""---
@@ -399,11 +456,12 @@ layout: default
 title: {yaml_escape(title)}
 date: {now.isoformat()}
 summary: {yaml_escape(teaser)}
+run_time_ist: {yaml_escape(run_time)}
 ---
 
 <article class="digest-post">
   <a class="back-link" href="{{{{ '/' | relative_url }}}}">PIB Brief</a>
-  <p class="post-meta">{now.date().isoformat()} · {ai_note}</p>
+  <p class="post-meta">{ai_note}</p>
 
 {summary_to_html(summary, items)}
 

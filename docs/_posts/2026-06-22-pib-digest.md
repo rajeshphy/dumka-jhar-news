@@ -1,13 +1,14 @@
 ---
 layout: default
-title: "Public Health and Welfare"
+title: "Public Health, Economic Growth and Supply Chains"
 date: 2026-06-22T15:51:10.805452+00:00
 summary: "Public Health and Welfare: India has reached a significant milestone with 5 lakh organ donation pledges, while the government has officially announced the Ha..."
+run_time_ist: "9:21PM"
 ---
 
 <article class="digest-post">
   <a class="back-link" href="{{ '/' | relative_url }}">PIB Brief</a>
-  <p class="post-meta">2026-06-22 · Gemini-assisted summary</p>
+  <p class="post-meta">Gemini Summary: 9:21PM</p>
 
 <ul class="digest-points">
   <li><strong>Public Health and Welfare:</strong> India has reached a significant milestone with 5 lakh organ donation pledges, while the government has officially announced the Haj Policy for 2027.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276810">Source 3</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2276793">Source 4</a></span></li>

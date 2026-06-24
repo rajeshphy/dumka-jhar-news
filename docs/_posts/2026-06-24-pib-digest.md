@@ -1,13 +1,14 @@
 ---
 layout: default
-title: "Diplomatic and international engagements"
+title: "Diplomacy, National Honours and Infrastructure Updates"
 date: 2026-06-24T07:22:59.921266+00:00
 summary: "Diplomatic and international engagements: The Prime Minister held highlevel discussions with the Amir of Qatar and national security officials, while also ex..."
+run_time_ist: "12:52PM"
 ---
 
 <article class="digest-post">
   <a class="back-link" href="{{ '/' | relative_url }}">PIB Brief</a>
-  <p class="post-meta">2026-06-24 · Gemini-assisted summary</p>
+  <p class="post-meta">Gemini Summary: 12:52PM</p>
 
 <ul class="digest-points">
   <li><strong>Diplomatic and international engagements:</strong> The Prime Minister held high-level discussions with the Amir of Qatar and national security officials, while also extending congratulations to the leadership of Ethiopia.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277308">Source 6</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277217">Source 11</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277216">Source 12</a></span></li>
