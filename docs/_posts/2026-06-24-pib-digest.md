@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Diplomatic engagements"
-date: 2026-06-24T04:46:12.714615+00:00
-summary: "Diplomatic engagements: Prime Minister Narendra Modi held discussions with the Amir of Qatar and extended congratulations to Ethiopian Prime Minister Abiy Ah..."
+title: "Diplomatic and international engagements"
+date: 2026-06-24T07:22:59.921266+00:00
+summary: "Diplomatic and international engagements: The Prime Minister held highlevel discussions with the Amir of Qatar and national security officials, while also ex..."
 ---
 
 <article class="digest-post">
@@ -10,11 +10,11 @@ summary: "Diplomatic engagements: Prime Minister Narendra Modi held discussions 
   <p class="post-meta">2026-06-24 · Gemini-assisted summary</p>
 
 <ul class="digest-points">
-  <li><strong>Diplomatic engagements:</strong> Prime Minister Narendra Modi held discussions with the Amir of Qatar and extended congratulations to Ethiopian Prime Minister Abiy Ahmed Ali following his party&#x27;s election success.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277308">Source 2</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277217">Source 7</a></span></li>
-  <li><strong>National honors:</strong> The President of India conferred the Padma Awards 2026 during the second Civil Investiture Ceremony held at Rashtrapati Bhavan, attended by the Prime Minister.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277271">Source 3</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277220">Source 6</a></span></li>
-  <li><strong>Agricultural and industrial policy:</strong> The government is reviewing Kharif season preparedness amid climate concerns and has reaffirmed that the national ethanol blending program is scientifically validated and monitored.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277210">Source 9</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277178">Source 12</a></span></li>
-  <li><strong>Economic and administrative initiatives:</strong> NITI Aayog released the eighth edition of &quot;Trade Watch Quarterly,&quot; while the National Traders’ Welfare Board met to discuss digital integration and the Chief Labour Commissioner organized a special court camp.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277265">Source 4</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277232">Source 5</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277207">Source 10</a></span></li>
-  <li><strong>International cooperation and defense:</strong> Indian Navy ships Udaygiri and Kavaratti visited Vietnam to strengthen maritime ties, while the National Human Rights Commission participated in a consultative meeting regarding human rights institutions.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277010">Source 1</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277203">Source 11</a></span></li>
+  <li><strong>Diplomatic and international engagements:</strong> The Prime Minister held high-level discussions with the Amir of Qatar and national security officials, while also extending congratulations to the leadership of Ethiopia.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277308">Source 6</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277217">Source 11</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277216">Source 12</a></span></li>
+  <li><strong>National honors and youth engagement:</strong> The President conferred the 2026 Padma Awards at a civil investiture ceremony, and the government recognized winners of the National Youth Parliament Competition and the Youth Co:Lab innovation challenge.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277333">Source 4</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277317">Source 5</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277271">Source 7</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277220">Source 10</a></span></li>
+  <li><strong>Infrastructure and connectivity developments:</strong> The Delhi Metro Rail Corporation has begun construction on the Central Vista corridor, and the TRAI conducted a quality assessment of mobile network services along the Manoharpur-Dausa National Highway.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277372">Source 2</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277337">Source 3</a></span></li>
+  <li><strong>Naval diplomacy:</strong> Indian Navy ships Udaygiri and Kavaratti have arrived in Ho Chi Minh City, Vietnam, to strengthen bilateral maritime relations.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277010">Source 1</a></span></li>
+  <li><strong>Policy and administrative initiatives:</strong> NITI Aayog released the latest edition of its &quot;Trade Watch Quarterly,&quot; and the office of the Chief Labour Commissioner held a special court camp to address labor-related matters.<span class="source-chips"><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277265">Source 8</a> <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277232">Source 9</a></span></li>
 </ul>
 
 <section class="source-note">
@@ -27,15 +27,15 @@ summary: "Diplomatic engagements: Prime Minister Narendra Modi held discussions 
 
 <ul class="source-list">
   <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277010">Indian Navys Eastern Fleet Ships Udaygiri and Kavaratti Arrive at Ho Chi Minh City, Vietnam</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277372">TRAI Assesses Mobile Network Quality on Manoharpur to Dausa National Highway (in Raja...</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277337">DMRC Commences Work at Central Secretariat Station for Central Vista Corridor</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277333">Six Youth-Led Sustainability Startups Win Youth Co:Lab National Innovation Challenge ...</a></li>
+  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277317">Prize Distribution Function of the 36th National Youth Parliament Competition, 2025-2...</a></li>
   <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277308">Prime Minister Shri Narendra Modi receives a telephone call from the Amir of Qatar</a></li>
   <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277271">Prime Minister attends Civil Investiture Ceremony-II at Rashtrapati Bhavan</a></li>
   <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277265">The office of Chief Labour Commissioner (Central) Organizes Special Court Camp at RVN...</a></li>
   <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277232">NITI Aayog launches Eighth Edition of “Trade Watch Quarterly”</a></li>
   <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277220">President of India Presents Padma Awards 2026 at the Civil Investiture Ceremony-ii</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277217">Prime Minister congratulates Prime Minister Abiy Ahmed Ali and Prosperity Party on el...</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277216">Prime Minister Shri Narendra Modi meets National Security Advisors and senior securit...</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277210">Ethanol blending programme is scientifically validated and closely monitored by the g...</a></li>
-  <li><a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2277207">National Traders’ Welfare Board Holds 10th Meeting in Hybrid Mode, Strengthening Digi...</a></li>
 </ul>
 
 </details>
