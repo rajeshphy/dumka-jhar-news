@@ -23,9 +23,9 @@ case "${1:-generate}" in
     ;;
   *)
     echo "Usage:"
-    echo "  ./run.sh generate [--limit 12]"
-    echo "  ./run.sh no-ai [--limit 12]"
-    echo "  ./run.sh serve [--limit 12]"
+    echo "  ./run.sh generate [--config config/sources.yml]"
+    echo "  ./run.sh no-ai [--config config/sources.yml]"
+    echo "  ./run.sh serve [--config config/sources.yml]"
     exit 2
     ;;
 esac

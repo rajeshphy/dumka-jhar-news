@@ -1,0 +1,225 @@
+settings:
+  # Candidate items retained before final summarisation.
+  local_limit: 36
+  state_limit: 36
+
+  final_points_per_section: 5
+  max_groups_per_section: 8
+  min_group_score: 2
+
+  require_ist_today: true
+  max_age_hours: 30
+  allow_unknown_dates: false
+
+  # Highest-priority places:
+  # 1. Dumka, where the reader currently lives
+  # 2. Muri–Silli region, the reader's birthplace
+  # 3. Remaining Santhal Pargana districts
+  local_keywords: >-
+    dumka,दुमका,
+    basukinath,बासुकीनाथ,
+    jama,जामा,
+    jar mundi,jarmundi,जरमुंडी,
+    saraiyahat,सरैयाहाट,
+    shikaripara,शिकारीपाड़ा,
+    kathikund,काठीकुंड,
+    ranishwar,रानीश्वर,
+    masalia,मसलिया,
+    gopeikandar,gopikandar,गोपीकांदर,
+    ramgarh dumka,रामगढ़ दुमका,
+    santhal pargana,santal pargana,
+    संथाल परगना,संताल परगना,
+    deoghar,देवघर,
+    jamtara,जामताड़ा,
+    godda,गोड्डा,
+    pakur,पाकुड़,
+    sahibganj,sahebganj,साहिबगंज,
+    muri,मुरी,मूरी,
+    silli,सिल्ली,
+    sonahatu,सोनाहातू,
+    rahe,राहे,
+    hindalco muri,हिंडाल्को मुरी,
+    muri junction,मुरी जंक्शन,
+    silli assembly,सिल्ली विधानसभा
+
+  primary_local_keywords: >-
+    dumka,दुमका,
+    basukinath,बासुकीनाथ,
+    jama,जामा,
+    jar mundi,jarmundi,जरमुंडी,
+    saraiyahat,सरैयाहाट,
+    shikaripara,शिकारीपाड़ा,
+    kathikund,काठीकुंड,
+    ranishwar,रानीश्वर,
+    masalia,मसलिया,
+    gopeikandar,gopikandar,गोपीकांदर,
+    ramgarh dumka,रामगढ़ दुमका
+
+  personal_local_keywords: >-
+    muri,मुरी,मूरी,
+    silli,सिल्ली,
+    sonahatu,सोनाहातू,
+    rahe,राहे,
+    hindalco muri,हिंडाल्को मुरी,
+    muri junction,मुरी जंक्शन,
+    silli assembly,सिल्ली विधानसभा
+
+  regional_local_keywords: >-
+    santhal pargana,santal pargana,
+    संथाल परगना,संताल परगना,
+    deoghar,देवघर,
+    jamtara,जामताड़ा,
+    godda,गोड्डा,
+    pakur,पाकुड़,
+    sahibganj,sahebganj,साहिबगंज
+
+  state_keywords: >-
+    jharkhand,झारखंड,
+    ranchi,रांची,
+    jamshedpur,जमशेदपुर,
+    dhanbad,धनबाद,
+    bokaro,बोकारो,
+    ramgarh,रामगढ़,
+    hazaribagh,हजारीबाग,
+    giridih,गिरिडीह,
+    palamu,पलामू,
+    medininagar,मेदिनीनगर,
+    chaibasa,चाईबासा,
+    khunti,खूंटी,
+    gumla,गुमला,
+    latehar,लातेहार,
+    lohardaga,लोहरदगा,
+    koderma,कोडरमा,
+    chatra,चतरा,
+    garhwa,गढ़वा,
+    simdega,सिमडेगा,
+    saraikela,सरायकेला,
+    chakradharpur,चक्रधरपुर,
+    hemant soren,हेमंत सोरेन,
+    jharkhand government,झारखंड सरकार,
+    jharkhand high court,झारखंड हाईकोर्ट,
+    jharkhand assembly,झारखंड विधानसभा
+
+  public_interest_keywords: >-
+    accident,हादसा,death,मौत,court,high court,police,arrest,crime,fire,
+    weather,rain,alert,government,सरकार,recruitment,भर्ती,exam,school,
+    education,health,hospital,power,electricity,road,bridge,water,farmer,
+    tribal,forest,corruption,probe,जांच,infrastructure,railway,रेलवे
+
+  low_value_keywords: >-
+    campus diary,opinion,editorial,celebrity,entertainment,promotion,
+    launch offer,poster,trailer
+
+  exclude_keywords: >-
+    horoscope,astrology,photo gallery,photos,web story,viral video,recipe,
+    lottery,result live,cricket score,match preview,facebook,facebook.com
+
+sources:
+  local:
+    # ======================================================
+    # DUMKA — PRIMARY LOCAL COVERAGE
+    # High-volume enough to justify separate English and
+    # Hindi Google News searches.
+    # ======================================================
+
+    - name: Google News - Dumka
+      type: rss
+      weight: 4
+      url: "https://news.google.com/rss/search?q=Dumka%20Jharkhand%20when%3A1d&hl=en-IN&gl=IN&ceid=IN:en"
+
+    - name: Google News - Dumka Hindi
+      type: rss
+      weight: 4
+      url: "https://news.google.com/rss/search?q=%E0%A4%A6%E0%A5%81%E0%A4%AE%E0%A4%95%E0%A4%BE%20%E0%A4%9D%E0%A4%BE%E0%A4%B0%E0%A4%96%E0%A4%82%E0%A4%A1%20when%3A1d&hl=hi-IN&gl=IN&ceid=IN:hi"
+
+    # ======================================================
+    # SANTHAL PARGANA — SECONDARY REGIONAL COVERAGE
+    # One regional feed is sufficient. Separate feeds for
+    # every district create excessive duplication.
+    # ======================================================
+
+    - name: Google News - Santhal Pargana
+      type: rss
+      weight: 2
+      url: "https://news.google.com/rss/search?q=%22Santhal%20Pargana%22%20Jharkhand%20when%3A1d&hl=en-IN&gl=IN&ceid=IN:en"
+
+    - name: Google News - Santhal Pargana Hindi
+      type: rss
+      weight: 2
+      url: "https://news.google.com/rss/search?q=%22%E0%A4%B8%E0%A4%82%E0%A4%A5%E0%A4%BE%E0%A4%B2%20%E0%A4%AA%E0%A4%B0%E0%A4%97%E0%A4%A8%E0%A4%BE%22%20%E0%A4%9D%E0%A4%BE%E0%A4%B0%E0%A4%96%E0%A4%82%E0%A4%A1%20when%3A1d&hl=hi-IN&gl=IN&ceid=IN:hi"
+
+    # ======================================================
+    # MURI–SILLI — PERSONAL-PRIORITY BIRTHPLACE REGION
+    #
+    # Do not use a standalone Muri feed. Muri has too few
+    # articles on an ordinary day. The four-place OR query
+    # gives the region enough volume while retaining local
+    # relevance.
+    # ======================================================
+
+    - name: Google News - Muri Silli Region
+      type: rss
+      weight: 3
+      url: "https://news.google.com/rss/search?q=%28Muri%20OR%20Silli%20OR%20Sonahatu%20OR%20Rahe%29%20Ranchi%20Jharkhand%20when%3A1d&hl=en-IN&gl=IN&ceid=IN:en"
+
+    - name: Google News - Muri Silli Region Hindi
+      type: rss
+      weight: 3
+      url: "https://news.google.com/rss/search?q=%28%E0%A4%AE%E0%A5%81%E0%A4%B0%E0%A5%80%20OR%20%E0%A4%AE%E0%A5%82%E0%A4%B0%E0%A5%80%20OR%20%E0%A4%B8%E0%A4%BF%E0%A4%B2%E0%A5%8D%E0%A4%B2%E0%A5%80%20OR%20%E0%A4%B8%E0%A5%8B%E0%A4%A8%E0%A4%BE%E0%A4%B9%E0%A4%BE%E0%A4%A4%E0%A5%82%20OR%20%E0%A4%B0%E0%A4%BE%E0%A4%B9%E0%A5%87%29%20%E0%A4%9D%E0%A4%BE%E0%A4%B0%E0%A4%96%E0%A4%82%E0%A4%A1%20when%3A1d&hl=hi-IN&gl=IN&ceid=IN:hi"
+
+    # Covers railway, Hindalco and transport reports that may
+    # mention Muri without mentioning the wider locality.
+    - name: Google News - Muri Railway and Hindalco
+      type: rss
+      weight: 3
+      url: "https://news.google.com/rss/search?q=%28%22Muri%20Junction%22%20OR%20%22Hindalco%20Muri%22%20OR%20%22Ranchi%20Muri%20railway%22%29%20when%3A1d&hl=en-IN&gl=IN&ceid=IN:en"
+
+  state:
+    # ======================================================
+    # JHARKHAND — MAIN STATEWIDE FEEDS
+    # These two feeds generate sufficient statewide volume.
+    # ======================================================
+
+    - name: Google News - Jharkhand
+      type: rss
+      weight: 2
+      url: "https://news.google.com/rss/search?q=Jharkhand%20when%3A1d&hl=en-IN&gl=IN&ceid=IN:en"
+
+    - name: Google News - Jharkhand Hindi
+      type: rss
+      weight: 2
+      url: "https://news.google.com/rss/search?q=%E0%A4%9D%E0%A4%BE%E0%A4%B0%E0%A4%96%E0%A4%82%E0%A4%A1%20when%3A1d&hl=hi-IN&gl=IN&ceid=IN:hi"
+
+    # ======================================================
+    # RANCHI DISTRICT
+    #
+    # Necessary because Silli, Sonahatu, Rahe and Muri-area
+    # stories are often classified by publishers as Ranchi.
+    # ======================================================
+
+    - name: Google News - Ranchi District
+      type: rss
+      weight: 2
+      url: "https://news.google.com/rss/search?q=Ranchi%20Jharkhand%20when%3A1d&hl=en-IN&gl=IN&ceid=IN:en"
+
+    - name: Google News - Ranchi District Hindi
+      type: rss
+      weight: 2
+      url: "https://news.google.com/rss/search?q=%E0%A4%B0%E0%A4%BE%E0%A4%82%E0%A4%9A%E0%A5%80%20%E0%A4%9D%E0%A4%BE%E0%A4%B0%E0%A4%96%E0%A4%82%E0%A4%A1%20when%3A1d&hl=hi-IN&gl=IN&ceid=IN:hi"
+
+    # ======================================================
+    # GOVERNANCE AND PUBLIC POLICY
+    #
+    # A narrower feed prevents major government decisions
+    # from being buried under crime and city news.
+    # ======================================================
+
+    - name: Google News - Jharkhand Government
+      type: rss
+      weight: 3
+      url: "https://news.google.com/rss/search?q=%22Jharkhand%20Government%22%20when%3A1d&hl=en-IN&gl=IN&ceid=IN:en"
+
+    - name: Google News - Jharkhand Government Hindi
+      type: rss
+      weight: 3
+      url: "https://news.google.com/rss/search?q=%22%E0%A4%9D%E0%A4%BE%E0%A4%B0%E0%A4%96%E0%A4%82%E0%A4%A1%20%E0%A4%B8%E0%A4%B0%E0%A4%95%E0%A4%BE%E0%A4%B0%22%20when%3A1d&hl=hi-IN&gl=IN&ceid=IN:hi"

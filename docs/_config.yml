@@ -1,7 +1,7 @@
-title: PIB
-description: A daily English digest of significant PIB regional updates.
+title: Dumka Brief
+description: A daily English digest of Dumka and Jharkhand news.
 url: ""
-baseurl: "/pib"
+baseurl: "/dumka-jhar-news"
 timezone: Asia/Kolkata
 future: false
 

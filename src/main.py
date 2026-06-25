@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate a small English PIB news digest from the regional PIB page."""
+"""Generate an English Dumka and Jharkhand daily news brief."""
 
 from __future__ import annotations
 
@@ -13,131 +13,39 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass
-from datetime import datetime, timezone
-from html.parser import HTMLParser
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 
-PIB_URL = "https://www.pib.gov.in/indexd.aspx?reg=48&lang=1"
+SITE_TITLE = "Dumka Brief"
+SOURCE_CONFIG = "config/sources.yml"
 GEMINI_API_ROOT = "https://generativelanguage.googleapis.com/v1beta/models"
 DEFAULT_GEMINI_MODEL = "gemini-3.1-flash-lite"
 IST = ZoneInfo("Asia/Kolkata")
 ROOT = Path(__file__).resolve().parents[1]
-DOCS = ROOT / "docs"
-POSTS = DOCS / "_posts"
+POSTS = ROOT / "docs" / "_posts"
 DATA = ROOT / "data"
 QUOTA_FILE = DATA / "quota.json"
 
 
 @dataclass
 class NewsItem:
+    section: str
+    item_id: str
     title: str
     url: str
-    date: str = ""
-
-
-class LinkParser(HTMLParser):
-    """Collect link text and URLs from the PIB listing page."""
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.links: list[NewsItem] = []
-        self._href: str | None = None
-        self._text: list[str] = []
-
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        if tag.lower() != "a":
-            return
-        attrs_map = dict(attrs)
-        href = attrs_map.get("href")
-        if href:
-            self._href = href
-            self._text = []
-
-    def handle_data(self, data: str) -> None:
-        if self._href:
-            self._text.append(data)
-
-    def handle_endtag(self, tag: str) -> None:
-        if tag.lower() != "a" or not self._href:
-            return
-        title = clean_text(" ".join(self._text))
-        if is_news_link(self._href) and is_news_title(title):
-            self.links.append(NewsItem(title=title, url=absolute_url(self._href)))
-        self._href = None
-        self._text = []
+    source: str = ""
+    source_weight: int = 1
+    published: str = ""
+    published_at: datetime | None = None
 
 
 def clean_text(value: str) -> str:
-    return re.sub(r"\s+", " ", value).strip()
-
-
-def is_news_title(title: str) -> bool:
-    if len(title) < 35:
-        return False
-    lowered = title.lower()
-    rejected = (
-        "skip to main",
-        "screen reader",
-        "press information bureau",
-        "ministry",
-        "archive",
-        "home",
-        "contact",
-    )
-    return not any(bit in lowered for bit in rejected)
-
-
-def is_news_link(href: str) -> bool:
-    lowered = href.lower()
-    return "pressreleasedetail.aspx" in lowered and "prid=" in lowered
-
-
-def absolute_url(href: str) -> str:
-    return urllib.parse.urljoin(PIB_URL, href)
-
-
-def fetch_text(url: str) -> str:
-    request = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": (
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/126.0 Safari/537.36"
-            ),
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Referer": "https://www.pib.gov.in/",
-        },
-    )
-    with urllib.request.urlopen(request, timeout=30) as response:
-        raw = response.read()
-        content_type = response.headers.get("content-type", "")
-    charset = "utf-8"
-    match = re.search(r"charset=([\w-]+)", content_type, flags=re.I)
-    if match:
-        charset = match.group(1)
-    return raw.decode(charset, errors="replace")
-
-
-def collect_items(limit: int) -> list[NewsItem]:
-    parser = LinkParser()
-    parser.feed(fetch_text(PIB_URL))
-
-    seen: set[str] = set()
-    items: list[NewsItem] = []
-    for item in parser.links:
-        key = item.title.lower()
-        if key in seen:
-            continue
-        seen.add(key)
-        items.append(item)
-        if len(items) >= limit:
-            break
-    return items
+    return re.sub(r"\s+", " ", html.unescape(value or "")).strip()
 
 
 def read_env_file() -> None:
@@ -150,6 +58,526 @@ def read_env_file() -> None:
             continue
         key, value = line.split("=", 1)
         os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+
+
+def parse_simple_yaml(path: Path) -> dict:
+    """Parse the small sources.yml shape used by this project."""
+    config: dict = {"settings": {}, "sources": {"local": [], "state": []}}
+    section = None
+    group = None
+    current_item = None
+    block_key = None
+    block_indent = 0
+    block_lines: list[str] = []
+
+    def finish_block() -> None:
+        nonlocal block_key, block_lines
+        if block_key:
+            config["settings"][block_key] = clean_text(" ".join(block_lines))
+        block_key = None
+        block_lines = []
+
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.rstrip()
+        stripped = line.strip()
+        indent = len(line) - len(line.lstrip(" "))
+        if block_key:
+            if stripped and indent > block_indent:
+                block_lines.append(stripped)
+                continue
+            finish_block()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if not line.startswith(" ") and stripped.endswith(":"):
+            section = stripped[:-1]
+            group = None
+            current_item = None
+            continue
+        if section == "settings" and ":" in stripped:
+            key, value = stripped.split(":", 1)
+            parsed_value = parse_yaml_value(value)
+            if parsed_value in {">", ">-", "|", "|-"}:
+                block_key = key.strip()
+                block_indent = indent
+                block_lines = []
+            else:
+                config["settings"][key.strip()] = parsed_value
+            continue
+        if section == "sources" and line.startswith("  ") and stripped.endswith(":"):
+            group = stripped[:-1]
+            config["sources"].setdefault(group, [])
+            current_item = None
+            continue
+        if section == "sources" and group and stripped.startswith("- "):
+            current_item = {}
+            config["sources"][group].append(current_item)
+            remainder = stripped[2:]
+            if ":" in remainder:
+                key, value = remainder.split(":", 1)
+                current_item[key.strip()] = parse_yaml_value(value)
+            continue
+        if current_item is not None and ":" in stripped:
+            key, value = stripped.split(":", 1)
+            current_item[key.strip()] = parse_yaml_value(value)
+    finish_block()
+    return config
+
+
+def parse_yaml_value(value: str):
+    value = value.strip()
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+        return value[1:-1]
+    if value.isdigit():
+        return int(value)
+    return value
+
+
+def fetch_text(url: str) -> str:
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "DumkaBrief/1.0 (+https://github.com/rajeshphy/dumka-jhar-news)",
+            "Accept": "application/rss+xml, application/xml, text/xml, */*",
+            "Accept-Language": "en-IN,en;q=0.9,hi-IN;q=0.8",
+        },
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        raw = response.read()
+        content_type = response.headers.get("content-type", "")
+    charset = "utf-8"
+    match = re.search(r"charset=([\w-]+)", content_type, flags=re.I)
+    if match:
+        charset = match.group(1)
+    return raw.decode(charset, errors="replace")
+
+
+def collect_from_rss(section: str, source_config: dict) -> list[NewsItem]:
+    source_name = source_config.get("name", "News source")
+    source_weight = int(source_config.get("weight", default_source_weight(source_name, section)))
+    feed = fetch_text(source_config["url"])
+    root = ET.fromstring(feed)
+    items: list[NewsItem] = []
+    prefix = "L" if section == "local" else "J"
+
+    for entry in root.findall(".//item"):
+        title = clean_text(entry.findtext("title"))
+        link = clean_text(entry.findtext("link"))
+        source = clean_text(entry.findtext("source")) or source_name
+        published_at = parse_feed_datetime(clean_text(entry.findtext("pubDate")))
+        published = format_item_date(published_at)
+        if not title or not link:
+            continue
+        items.append(
+            NewsItem(
+                section=section,
+                item_id="",
+                title=title,
+                url=link,
+                source=source,
+                source_weight=source_weight,
+                published=published,
+                published_at=published_at,
+            )
+        )
+
+    for index, item in enumerate(items, 1):
+        item.item_id = f"{prefix}{index}"
+    return items
+
+
+def default_source_weight(source_name: str, section: str) -> int:
+    name = source_name.lower()
+    if section == "local":
+        if "dumka" in name:
+            return 4
+        if any(place in name for place in ("muri", "silli", "sonahatu", "rahe")):
+            return 3
+        if "santhal" in name or "santal" in name:
+            return 2
+    if "government" in name:
+        return 3
+    if "jharkhand" in name or "ranchi" in name:
+        return 2
+    return 1
+
+
+def parse_feed_datetime(value: str) -> datetime | None:
+    if not value:
+        return None
+    try:
+        parsed = parsedate_to_datetime(value)
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return parsed
+    except (TypeError, ValueError, IndexError, OverflowError):
+        return None
+
+
+def format_item_date(value: datetime | None) -> str:
+    if not value:
+        return "unknown"
+    return value.astimezone(IST).strftime("%Y-%m-%d %H:%M IST")
+
+
+def collect_news(config: dict) -> list[NewsItem]:
+    all_items: list[NewsItem] = []
+    settings = config.get("settings", {})
+    for section in ("local", "state"):
+        section_items: list[NewsItem] = []
+        for source in config.get("sources", {}).get(section, []):
+            if source.get("type") != "rss" or not source.get("url"):
+                continue
+            try:
+                section_items.extend(collect_from_rss(section, source))
+            except Exception as exc:
+                print(f"Warning: failed to fetch {source.get('name', source.get('url'))}: {exc}", file=sys.stderr)
+        limit = int(config.get("settings", {}).get(f"{section}_limit", 24))
+        relevant_items = filter_relevant_items(section, section_items, settings)
+        useful_items = filter_excluded_items(relevant_items, settings)
+        fresh_items = filter_fresh_items(useful_items, settings)
+        candidate_items = dedupe_items(fresh_items)[:limit]
+        selected_groups = select_top_story_groups(section, candidate_items, settings)
+        selected_items = [item for group in selected_groups for item in group]
+        all_items.extend(assign_ids(section, selected_items))
+    return all_items
+
+
+def config_bool(value, default: bool = False) -> bool:
+    if value is None:
+        return default
+    return str(value).strip().lower() in {"1", "true", "yes", "on"}
+
+
+def filter_fresh_items(items: list[NewsItem], settings: dict) -> list[NewsItem]:
+    require_today = config_bool(settings.get("require_ist_today"), True)
+    allow_unknown_dates = config_bool(settings.get("allow_unknown_dates"), False)
+    max_age_hours = int(settings.get("max_age_hours", 30))
+    now_ist = datetime.now(IST)
+    fresh: list[NewsItem] = []
+
+    for item in items:
+        if not item.published_at:
+            if allow_unknown_dates:
+                fresh.append(item)
+            continue
+        published_ist = item.published_at.astimezone(IST)
+        if require_today:
+            if published_ist.date() == now_ist.date():
+                fresh.append(item)
+            continue
+        if now_ist - published_ist <= timedelta(hours=max_age_hours):
+            fresh.append(item)
+
+    return sorted(fresh, key=item_sort_key, reverse=True)
+
+
+def filter_relevant_items(section: str, items: list[NewsItem], settings: dict) -> list[NewsItem]:
+    keywords = section_keywords(section, settings)
+    if not keywords:
+        return items
+    relevant = []
+    for item in items:
+        haystack = f"{item.title} {item.source}".lower()
+        if any(keyword in haystack for keyword in keywords):
+            relevant.append(item)
+    return relevant
+
+
+def filter_excluded_items(items: list[NewsItem], settings: dict) -> list[NewsItem]:
+    excluded = configured_keywords(
+        settings,
+        "exclude_keywords",
+        (
+            "horoscope,astrology,photo gallery,photos,web story,viral video,recipe,"
+            "lottery,result live,cricket score,match preview"
+        ),
+    )
+    if not excluded:
+        return items
+    useful = []
+    for item in items:
+        haystack = f"{item.title} {item.source}".lower()
+        if not any(keyword in haystack for keyword in excluded):
+            useful.append(item)
+    return useful
+
+
+def section_keywords(section: str, settings: dict) -> list[str]:
+    default_local = (
+        "dumka,दुमका,basukinath,बासुकीनाथ,santhal,संथाल,deoghar,देवघर,"
+        "jamtara,जामताड़ा,godda,गोड्डा,pakur,पाकुड़,sahebganj,sahibganj,साहिबगंज"
+    )
+    default_state = (
+        "jharkhand,झारखंड,ranchi,रांची,jamshedpur,जमशेदपुर,dhanbad,धनबाद,"
+        "bokaro,बोकारो,palamu,पलामू,hazaribagh,हजारीबाग,giridih,गिरिडीह,chaibasa,चाईबासा"
+    )
+    return configured_keywords(settings, f"{section}_keywords", default_local if section == "local" else default_state)
+
+
+def configured_keywords(settings: dict, key: str, default: str) -> list[str]:
+    raw = settings.get(key, default)
+    return [clean_text(keyword).lower() for keyword in str(raw).split(",") if clean_text(keyword)]
+
+
+def item_sort_key(item: NewsItem) -> tuple[int, float]:
+    if not item.published_at:
+        return (0, 0.0)
+    return (1, item.published_at.timestamp())
+
+
+def assign_ids(section: str, items: list[NewsItem]) -> list[NewsItem]:
+    prefix = "L" if section == "local" else "J"
+    for index, item in enumerate(items, 1):
+        item.item_id = f"{prefix}{index}"
+    return items
+
+
+def dedupe_items(items: list[NewsItem]) -> list[NewsItem]:
+    result: list[NewsItem] = []
+    seen_urls: set[str] = set()
+    seen_keys: set[str] = set()
+    for item in items:
+        url_key = normalized_url(item.url)
+        title_key = title_fingerprint(item.title)
+        if url_key in seen_urls or title_key in seen_keys:
+            continue
+        seen_urls.add(url_key)
+        seen_keys.add(title_key)
+        result.append(item)
+    return result
+
+
+def normalized_url(url: str) -> str:
+    parsed = urllib.parse.urlparse(url)
+    return urllib.parse.urlunparse((parsed.scheme, parsed.netloc, parsed.path, "", "", ""))
+
+
+def title_fingerprint(title: str) -> str:
+    words = keyword_set(title)
+    return " ".join(sorted(words))
+
+
+def keyword_set(text: str) -> set[str]:
+    words = re.findall(r"[\w-]{4,}", text.lower(), flags=re.UNICODE)
+    stopwords = {
+        "about", "after", "from", "have", "into", "that", "their", "this", "with",
+        "dumka", "jharkhand", "news", "latest", "today", "google", "india",
+    }
+    return {word for word in words if word not in stopwords}
+
+
+def similar_titles(a: str, b: str) -> bool:
+    left = keyword_set(a)
+    right = keyword_set(b)
+    if not left or not right:
+        return False
+    return len(left & right) / max(len(left), len(right)) >= 0.72
+
+
+def related_titles(a: str, b: str) -> bool:
+    left = keyword_set(a)
+    right = keyword_set(b)
+    if not left or not right:
+        return False
+    overlap = len(left & right)
+    return overlap >= 3 and overlap / min(len(left), len(right)) >= 0.5
+
+
+def group_related_items(items: list[NewsItem]) -> list[list[NewsItem]]:
+    groups: list[list[NewsItem]] = []
+    for item in items:
+        matched_group = None
+        for group in groups:
+            if any(related_titles(item.title, existing.title) for existing in group):
+                matched_group = group
+                break
+        if matched_group is None:
+            groups.append([item])
+        else:
+            matched_group.append(item)
+    return groups
+
+
+def select_top_story_groups(section: str, items: list[NewsItem], settings: dict) -> list[list[NewsItem]]:
+    groups = group_related_items(items)
+    scored = []
+    for group in groups:
+        score, _ = score_story_group(group, settings)
+        newest = max((item.published_at.timestamp() for item in group if item.published_at), default=0.0)
+        scored.append((score, newest, group))
+
+    scored.sort(key=lambda item: (item[0], item[1]), reverse=True)
+    max_groups = int(settings.get("max_groups_per_section", 8))
+    min_score = int(settings.get("min_group_score", 2))
+    selected = [group for score, _, group in scored if score >= min_score][:max_groups]
+    if not selected:
+        selected = [group for _, _, group in scored[:max_groups]]
+    if not selected:
+        print(f"Warning: no selected {section} story groups after scoring.", file=sys.stderr)
+    return selected
+
+
+def score_story_group(group: list[NewsItem], settings: dict) -> tuple[int, list[str]]:
+    if not group:
+        return 0, []
+
+    section = group[0].section
+    text = " ".join(f"{item.title} {item.source}" for item in group).lower()
+    score = 0
+    reasons: list[str] = []
+
+    source_boost = min(4, max((max(0, item.source_weight) for item in group), default=1))
+    score += source_boost
+    reasons.append(f"source weight +{source_boost}")
+
+    if section == "local":
+        primary_hits = keyword_hits(text, primary_local_keywords(settings))
+        personal_hits = keyword_hits(text, personal_local_keywords(settings))
+        regional_hits = keyword_hits(
+            text,
+            regional_local_keywords(settings),
+        )
+        if primary_hits:
+            score += 6
+            reasons.append("primary Dumka +6")
+        elif personal_hits:
+            score += 5
+            reasons.append("personal local +5")
+        elif regional_hits:
+            score += 2
+            reasons.append("regional local +2")
+        else:
+            score -= 3
+            reasons.append("weak local match -3")
+    else:
+        state_hits = keyword_hits(text, section_keywords("state", settings))
+        if state_hits:
+            score += 3
+            reasons.append("state match +3")
+
+    public_hits = keyword_hits(
+        text,
+        configured_keywords(
+            settings,
+            "public_interest_keywords",
+            (
+                "accident,हादसा,death,मौत,court,high court,police,arrest,crime,fire,weather,"
+                "rain,alert,government,सरकार,recruitment,भर्ती,exam,school,health,hospital,"
+                "power,electricity,road,bridge,water,farmer,tribal,forest,corruption,probe,जांच"
+            ),
+        ),
+    )
+    if public_hits:
+        boost = min(6, public_hits * 2)
+        score += boost
+        reasons.append(f"public interest +{boost}")
+
+    if len(group) > 1:
+        boost = min(3, len(group) - 1)
+        score += boost
+        reasons.append(f"related headlines +{boost}")
+
+    if len(unique_sources(group)) > 1:
+        score += 2
+        reasons.append("multiple sources +2")
+
+    recency_boost = recency_score(group)
+    if recency_boost:
+        score += recency_boost
+        reasons.append(f"freshness +{recency_boost}")
+
+    low_value_hits = keyword_hits(
+        text,
+        configured_keywords(
+            settings,
+            "low_value_keywords",
+            "campus diary,opinion,editorial,celebrity,entertainment,promotion,launch offer,poster,trailer",
+        ),
+    )
+    if low_value_hits:
+        penalty = min(6, low_value_hits * 3)
+        score -= penalty
+        reasons.append(f"low value -{penalty}")
+
+    if len(keyword_set(text)) <= 2:
+        score -= 2
+        reasons.append("vague headline -2")
+
+    return score, reasons
+
+
+def primary_local_keywords(settings: dict) -> list[str]:
+    return configured_keywords(
+        settings,
+        "primary_local_keywords",
+        str(settings.get("local_primary_keywords", "dumka,दुमका,basukinath,बासुकीनाथ,jama,जामा,jarmundi,जरमुंडी")),
+    )
+
+
+def personal_local_keywords(settings: dict) -> list[str]:
+    return configured_keywords(
+        settings,
+        "personal_local_keywords",
+        (
+            "muri,मुरी,मूरी,silli,सिल्ली,sonahatu,सोनाहातू,rahe,राहे,"
+            "hindalco muri,हिंडाल्को मुरी,muri junction,मुरी जंक्शन,silli assembly,सिल्ली विधानसभा"
+        ),
+    )
+
+
+def regional_local_keywords(settings: dict) -> list[str]:
+    return configured_keywords(
+        settings,
+        "regional_local_keywords",
+        str(
+            settings.get(
+                "local_nearby_keywords",
+                (
+                    "santhal,संथाल,santal,संताल,deoghar,देवघर,jamtara,जामताड़ा,"
+                    "godda,गोड्डा,pakur,पाकुड़,sahebganj,sahibganj,साहिबगंज"
+                ),
+            )
+        ),
+    )
+
+
+def keyword_hits(text: str, keywords: list[str]) -> int:
+    return sum(1 for keyword in keywords if keyword and keyword in text)
+
+
+def unique_sources(group: list[NewsItem]) -> set[str]:
+    return {clean_text(item.source).lower() for item in group if clean_text(item.source)}
+
+
+def recency_score(group: list[NewsItem]) -> int:
+    newest = max((item.published_at for item in group if item.published_at), default=None)
+    if not newest:
+        return 0
+    age = datetime.now(timezone.utc) - newest.astimezone(timezone.utc)
+    if age <= timedelta(hours=6):
+        return 2
+    if age <= timedelta(hours=12):
+        return 1
+    return 0
+
+
+def prompt_story_groups(items: list[NewsItem], settings: dict) -> str:
+    lines: list[str] = []
+    for section, heading in (("local", "Dumka and Nearby"), ("state", "Jharkhand")):
+        lines.append(f"{heading} candidate story groups:")
+        section_items = [item for item in items if item.section == section]
+        if not section_items:
+            lines.append("- No fresh items found for this section.")
+            continue
+        for group_index, group in enumerate(group_related_items(section_items), 1):
+            ids = ", ".join(f"[{item.item_id}]" for item in group)
+            dates = ", ".join(sorted({item.published for item in group if item.published}))
+            score, reasons = score_story_group(group, settings)
+            signals = "; ".join(reasons[:4])
+            lines.append(f"- Group {group_index} {ids}; score: {score}; signals: {signals}; dates: {dates}")
+            for item in group:
+                lines.append(f"  {item.item_id}. {item.title} | {item.source}")
+    return "\n".join(lines)
 
 
 def load_quota() -> dict:
@@ -167,59 +595,63 @@ def reserve_gemini_call(max_daily_calls: int, min_interval_seconds: int) -> None
     quota = load_quota()
     if quota.get("day") != today:
         quota = {"day": today, "count": 0, "last_call": 0.0}
-
     if int(quota.get("count", 0)) >= max_daily_calls:
         raise RuntimeError(f"Daily Gemini call limit reached: {max_daily_calls}")
-
     elapsed = time.time() - float(quota.get("last_call", 0.0))
     if elapsed < min_interval_seconds:
         time.sleep(min_interval_seconds - elapsed)
-
     quota["count"] = int(quota.get("count", 0)) + 1
     quota["last_call"] = time.time()
     QUOTA_FILE.write_text(json.dumps(quota, indent=2), encoding="utf-8")
 
 
-def gemini_summary(items: list[NewsItem], api_key: str) -> str:
+def gemini_summary(items: list[NewsItem], api_key: str, points_per_section: int, settings: dict) -> str:
     reserve_gemini_call(max_daily_calls=20, min_interval_seconds=12)
     model = os.environ.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL)
-    prompt_items = "\n".join(
-        f"{index}. {item.title}\n   URL: {item.url}" for index, item in enumerate(items, 1)
-    )
+    current_date = datetime.now(IST).date().isoformat()
+    max_points = min(5, points_per_section)
+    prompt_items = prompt_story_groups(items, settings)
     prompt = f"""
-Convert these PIB regional news headlines into an English Markdown digest.
+Create an English daily news brief for Dumka and Jharkhand.
+
+Current IST date: {current_date}
 
 Rules:
-- First line must be a suitable one-line digest title using this exact format:
-  TITLE: concise title covering the whole digest
-- Output no more than 5 significant bullet points.
-- Use clear, readable English.
-- Group related items where possible.
-- Prefer policy/public-service meaning over headline wording.
-- Keep every point factual and avoid adding facts not present in the headlines.
-- Do not include a heading.
-- Do not include inline links in the bullet points.
-- End every bullet with source numbers using this exact format: Sources: [1], [3]
-- Format each point as: - **Short topic:** one concise sentence. Sources: [1], [3]
-- The TITLE must not simply copy the first bullet topic.
+- First line must be: TITLE: concise title for the full brief.
+- Second line must be: SUMMARY: one concise homepage line covering the main themes across both sections.
+- The SUMMARY must not copy the first bullet. It should combine 2 to 4 themes, for example: "Road safety, local administration, recruitment, and Jharkhand court updates."
+- Keep SUMMARY under 160 characters.
+- Then produce exactly two sections:
+  SECTION: Dumka and Nearby
+  SECTION: Jharkhand
+- Under each section, output 0 to {max_points} significant bullet points.
+- It is better to output fewer than {max_points} points than to include weak, duplicate, stale, or filler news.
+- Never exceed {max_points} bullet points in any section.
+- Use clear English even when source headlines are Hindi.
+- Use only the supplied items. They were pre-filtered for today's IST date.
+- Only the highest-scored candidate groups are shown; do not ask for or infer omitted stories.
+- Editorial priority for local news is: 1) Dumka and its blocks, 2) Muri-Silli-Sonahatu-Rahe birthplace region, 3) nearby Santhal Pargana districts.
+- For statewide news, prefer major governance, infrastructure, court, weather, education, health, safety, and public-interest items.
+- Treat each candidate group as one possible story. If a group has multiple headlines, synthesize them into one coherent point.
+- Merge repeated or similar headlines into one bullet and cite all relevant source ids from that group.
+- Do not create separate bullets for small variants of the same story.
+- Keep every point factual and grounded in the supplied headlines only.
+- Prefer concrete public-interest news over routine promotional or vague social updates.
+- For Dumka, Twitter/X-sourced items may be used as local signals, but do not invent facts beyond the headline text.
+- End each bullet with source ids using this exact format: Sources: [L1], [L3] or Sources: [J2]
+- Do not include inline URLs.
+- Format bullets as: - **Short topic:** one concise synthesized sentence. Sources: [L1], [L3]
 
-PIB page: {PIB_URL}
-
-Items:
+Candidate story groups:
 {prompt_items}
 """.strip()
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 700},
+        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 1100},
     }
     body = json.dumps(payload).encode("utf-8")
     url = f"{GEMINI_API_ROOT}/{urllib.parse.quote(model)}:generateContent?key={urllib.parse.quote(api_key)}"
-    request = urllib.request.Request(
-        url,
-        data=body,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
+    request = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"}, method="POST")
     with urllib.request.urlopen(request, timeout=60) as response:
         data = json.loads(response.read().decode("utf-8"))
     try:
@@ -228,16 +660,82 @@ Items:
         raise RuntimeError(f"Unexpected Gemini response: {data}") from exc
 
 
-def fallback_summary(items: list[NewsItem]) -> str:
-    lines = []
-    for item in items[:5]:
-        lines.append(f"- [{readable_title(item.title)}]({item.url})")
+def fallback_summary(items: list[NewsItem], points_per_section: int, settings: dict) -> str:
+    lines = [
+        "TITLE: Dumka and Jharkhand News Brief",
+        f"SUMMARY: {fallback_home_summary(items, points_per_section, settings)}",
+    ]
+    max_points = min(5, points_per_section)
+    for section, heading in (("local", "Dumka and Nearby"), ("state", "Jharkhand")):
+        lines.append(f"SECTION: {heading}")
+        section_items = [item for item in items if item.section == section]
+        groups = group_related_items(section_items)
+        groups.sort(key=lambda group: score_story_group(group, settings)[0], reverse=True)
+        for group in groups[:max_points]:
+            lead = group[0]
+            source_ids = ", ".join(f"[{item.item_id}]" for item in group[:4])
+            lines.append(f"- **{readable_title(lead.source)}:** {readable_title(lead.title)} Sources: {source_ids}")
     return "\n".join(lines)
+
+
+def fallback_home_summary(items: list[NewsItem], points_per_section: int, settings: dict) -> str:
+    topics: list[str] = []
+    max_points = min(5, points_per_section)
+    for section in ("local", "state"):
+        section_items = [item for item in items if item.section == section]
+        groups = group_related_items(section_items)
+        groups.sort(key=lambda group: score_story_group(group, settings)[0], reverse=True)
+        for group in groups[:max_points]:
+            topic = story_topic(group)
+            if topic and topic.lower() not in {existing.lower() for existing in topics}:
+                topics.append(topic)
+            if len(topics) >= 4:
+                return join_summary_topics(topics)
+    return join_summary_topics(topics) if topics else "Daily Dumka and Jharkhand news updates"
+
+
+def story_topic(group: list[NewsItem]) -> str:
+    text = " ".join(headline_without_source(item) for item in group).lower()
+    topic_rules = [
+        ("road accidents", ("accident", "हादसा", "टक्कर", "मौत", "death")),
+        ("court updates", ("court", "high court", "हाईकोर्ट", "judicial")),
+        ("local administration", ("voter", "मतदाता", "administration", "प्रशिक्षण", "review", "बैठक")),
+        ("recruitment", ("recruitment", "भर्ती", "walk-in", "interview", "कक्षपाल")),
+        ("weather alerts", ("weather", "rain", "alert", "मौसम", "बारिश", "वज्रपात")),
+        ("health services", ("health", "hospital", "ambulance", "एंबुलेंस", "स्वास्थ्य")),
+        ("infrastructure", ("road", "bridge", "railway", "power", "electricity", "सड़क", "रेलवे", "बिजली")),
+        ("governance", ("government", "सरकार", "policy", "cm ", "मुख्यमंत्री")),
+        ("education", ("school", "college", "exam", "education", "विद्यालय", "परीक्षा")),
+    ]
+    for label, keywords in topic_rules:
+        if any(keyword in text for keyword in keywords):
+            return label
+    return ""
+
+
+def headline_without_source(item: NewsItem) -> str:
+    title = clean_text(item.title)
+    source = clean_text(item.source)
+    if source:
+        title = re.sub(rf"\s+-\s*{re.escape(source)}$", "", title, flags=re.I)
+    return title
+
+
+def join_summary_topics(topics: list[str]) -> str:
+    clean_topics = [topic for topic in topics if topic]
+    if not clean_topics:
+        return "Daily Dumka and Jharkhand news updates"
+    if len(clean_topics) == 1:
+        return f"{clean_topics[0].capitalize()} from Dumka and Jharkhand"
+    if len(clean_topics) == 2:
+        return f"{clean_topics[0].capitalize()} and {clean_topics[1]} from Dumka and Jharkhand"
+    return f"{', '.join(clean_topics[:-1]).capitalize()}, and {clean_topics[-1]} from Dumka and Jharkhand"
 
 
 def plain_text(markdown: str) -> str:
     text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", markdown)
-    text = re.sub(r"[*_`#>~-]+", "", text)
+    text = re.sub(r"[*_`#>~]+", "", text)
+    text = re.sub(r"\[[A-Z]\d+\]", "", text)
     return clean_text(text)
 
 
@@ -249,208 +747,193 @@ def readable_title(text: str) -> str:
         words = text.lower().split()
         titled = []
         for index, word in enumerate(words):
-            if index > 0 and word in small_words:
-                titled.append(word)
-            else:
-                titled.append(word[:1].upper() + word[1:])
+            titled.append(word if index > 0 and word in small_words else word[:1].upper() + word[1:])
         return " ".join(titled)
     return text
 
 
-def one_line_summary(summary: str, items: list[NewsItem]) -> str:
-    _, summary = split_digest_title(summary)
-    for line in summary.splitlines():
-        line = line.strip()
-        if not line or line.startswith("<") or line.startswith("#"):
-            continue
-        line = re.sub(r"^[-*]\s+", "", line)
-        line = re.sub(r"^\d+\.\s+", "", line)
-        text = plain_text(line)
-        if "digest" in text.lower() and len(text) < 60:
-            continue
-        if text and len(text) > 20:
-            return text[:157].rstrip() + "..." if len(text) > 160 else text
-    return plain_text(items[0].title) if items else "PIB daily brief"
-
-
-def post_title(summary: str, items: list[NewsItem]) -> str:
-    explicit_title, _ = split_digest_title(summary)
-    if explicit_title:
-        return explicit_title
-
-    topics = digest_topics(summary)
-    if len(topics) >= 2:
-        title = ", ".join(topics[:2])
-        if len(topics) >= 3:
-            title = f"{title} and {topics[2]}"
-        return title[:76].rstrip(" ,;:") if len(title) > 78 else title
-
-    teaser = one_line_summary(summary, items)
-    words = teaser.split()
-    return " ".join(words[:8]).rstrip(".,;:") if words else "PIB Brief"
-
-
-def split_digest_title(summary: str) -> tuple[str, str]:
+def split_digest_header(summary: str) -> tuple[str, str, str]:
     lines = summary.splitlines()
     remaining: list[str] = []
     title = ""
+    teaser = ""
     for line in lines:
-        stripped = line.strip()
-        match = re.match(r"^TITLE\s*:\s*(.+)$", stripped, flags=re.I)
+        match = re.match(r"^TITLE\s*:\s*(.+)$", line.strip(), flags=re.I)
         if match and not title:
             title = clean_title(match.group(1))
             continue
+        summary_match = re.match(r"^SUMMARY\s*:\s*(.+)$", line.strip(), flags=re.I)
+        if summary_match and not teaser:
+            teaser = clean_summary(summary_match.group(1))
+            continue
         remaining.append(line)
-    return title, "\n".join(remaining).strip()
+    return title or "Dumka and Jharkhand News Brief", teaser, "\n".join(remaining).strip()
+
+
+def split_digest_title(summary: str) -> tuple[str, str]:
+    title, _, body = split_digest_header(summary)
+    return title, body
 
 
 def clean_title(value: str) -> str:
-    title = plain_text(value)
-    title = re.sub(r"^(PIB\s+)?(Daily\s+)?(Brief|Digest)\s*[:\-]\s*", "", title, flags=re.I)
-    title = clean_text(title).strip(" .,:;-")
-    if not title:
-        return "PIB Brief"
-    if len(title) > 80:
-        title = " ".join(title.split()[:10]).rstrip(".,;:")
-    return title
+    title = plain_text(value).strip(" .,:;-")
+    return title[:80].rstrip(" ,;:") if title else "Dumka Brief"
 
 
-def digest_topics(summary: str) -> list[str]:
-    _, body = split_digest_title(summary)
-    topics: list[str] = []
-    for line in body.splitlines():
-        stripped = line.strip()
-        if not stripped.startswith(("- ", "* ")):
-            continue
-        match = re.match(r"^[-*]\s+\*\*([^*:]+):?\*\*\s*:?", stripped)
-        if not match:
-            continue
-        topic = clean_title(match.group(1))
-        if topic and topic.lower() not in {item.lower() for item in topics}:
-            topics.append(topic)
-    return topics
+def clean_summary(value: str) -> str:
+    summary = plain_text(value).strip(" .,:;-")
+    return summary[:157].rstrip() + "..." if len(summary) > 160 else summary
+
+
+def generic_title(title: str) -> bool:
+    normalized = clean_text(title).lower()
+    generic_titles = {
+        "dumka brief",
+        "dumka and jharkhand news brief",
+        "daily dumka and jharkhand news brief",
+        "dumka and jharkhand brief",
+    }
+    return normalized in generic_titles
 
 
 def yaml_escape(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
-def source_chips_html(source_numbers: list[int], items: list[NewsItem]) -> str:
-    valid_numbers = []
-    seen = set()
-    for number in source_numbers:
-        if number in seen or number < 1 or number > len(items):
-            continue
-        seen.add(number)
-        valid_numbers.append(number)
-    if not valid_numbers:
-        return ""
-
-    links = []
-    for number in valid_numbers:
-        item = items[number - 1]
-        url = html.escape(item.url, quote=True)
-        links.append(f'<a href="{url}">Source {number}</a>')
-    return f'<span class="source-chips">{" ".join(links)}</span>'
+def item_map(items: list[NewsItem]) -> dict[str, NewsItem]:
+    return {item.item_id: item for item in items}
 
 
-def extract_source_numbers(text: str) -> tuple[str, list[int]]:
-    source_numbers = [int(match) for match in re.findall(r"\[(\d+)\]", text)]
-    text = re.sub(r"\s*Sources?:\s*(?:\[\d+\]\s*,?\s*)+$", "", text, flags=re.I)
-    text = re.sub(r"\s*(?:\[\d+\]\s*)+$", "", text)
-    return clean_text(text), source_numbers
+def extract_source_ids(text: str) -> tuple[str, list[str]]:
+    source_ids = [match.upper() for match in re.findall(r"\[([LJ]\d+)\]", text, flags=re.I)]
+    text = re.sub(r"\s*Sources?:\s*(?:\[[LJ]\d+\]\s*,?\s*)+$", "", text, flags=re.I)
+    text = re.sub(r"\s*(?:\[[LJ]\d+\]\s*)+$", "", text, flags=re.I)
+    return clean_text(text), source_ids
 
 
-def keyword_set(text: str) -> set[str]:
-    words = re.findall(r"[a-zA-Z][a-zA-Z-]{3,}", text.lower())
-    stopwords = {
-        "and", "from", "have", "into", "that", "their", "this", "with",
-        "government", "india", "indian", "pib", "press", "release",
-    }
-    return {word for word in words if word not in stopwords}
-
-
-def infer_source_numbers(text: str, items: list[NewsItem], limit: int = 2) -> list[int]:
+def infer_source_ids(text: str, items: list[NewsItem], section: str, limit: int = 2) -> list[str]:
     text_words = keyword_set(plain_text(text))
     if not text_words:
         return []
-
     scored = []
-    for index, item in enumerate(items, 1):
-        title_words = keyword_set(item.title)
-        overlap = len(text_words & title_words)
+    for item in items:
+        if item.section != section:
+            continue
+        overlap = len(text_words & keyword_set(item.title))
         if overlap:
-            scored.append((overlap, index))
+            scored.append((overlap, item.item_id))
     scored.sort(reverse=True)
-    return [index for _, index in scored[:limit]]
+    return [item_id for _, item_id in scored[:limit]]
+
+
+def source_chips_html(source_ids: list[str], lookup: dict[str, NewsItem]) -> str:
+    links = []
+    seen = set()
+    for source_id in source_ids:
+        if source_id in seen or source_id not in lookup:
+            continue
+        seen.add(source_id)
+        item = lookup[source_id]
+        label = html.escape(source_id)
+        url = html.escape(item.url, quote=True)
+        links.append(f'<a href="{url}">{label}</a>')
+    return f'<span class="source-chips">{" ".join(links)}</span>' if links else ""
 
 
 def inline_markdown_to_html(text: str) -> str:
-    placeholders: list[str] = []
-
-    def link_replacer(match: re.Match[str]) -> str:
-        label = html.escape(match.group(1))
-        url = html.escape(match.group(2), quote=True)
-        placeholders.append(f'<a href="{url}">{label}</a>')
-        return f"@@LINK{len(placeholders) - 1}@@"
-
-    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link_replacer, text)
     escaped = html.escape(text)
-    escaped = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
-    for index, replacement in enumerate(placeholders):
-        escaped = escaped.replace(f"@@LINK{index}@@", replacement)
-    return escaped
+    return re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
 
 
-def summary_to_html(summary: str, items: list[NewsItem]) -> str:
-    _, summary = split_digest_title(summary)
-    bullet_items: list[str] = []
-    paragraphs: list[str] = []
-    for raw_line in summary.splitlines():
+def summary_to_html(summary: str, items: list[NewsItem], points_per_section: int = 5) -> str:
+    _, body = split_digest_title(summary)
+    lookup = item_map(items)
+    current_section = ""
+    section_counts = {"local": 0, "state": 0}
+    max_points = min(5, points_per_section)
+    html_lines: list[str] = []
+    in_list = False
+
+    for raw_line in body.splitlines():
         line = raw_line.strip()
-        if not line or line.startswith("<") or line.startswith("#"):
+        if not line:
             continue
-        line = re.sub(r"^\d+\.\s+", "- ", line)
+        section_match = re.match(r"^SECTION\s*:\s*(.+)$", line, flags=re.I)
+        if section_match:
+            if in_list:
+                html_lines.append("</ul>")
+                in_list = False
+            heading = clean_title(section_match.group(1))
+            current_section = "local" if "dumka" in heading.lower() else "state"
+            section_counts[current_section] = 0
+            html_lines.append(f'<h2 class="section-title">{html.escape(heading)}</h2>')
+            html_lines.append('<ul class="digest-points">')
+            in_list = True
+            continue
         if line.startswith(("- ", "* ")):
-            bullet_items.append(line[2:].strip())
-        else:
-            paragraphs.append(line)
+            if current_section and section_counts.get(current_section, 0) >= max_points:
+                continue
+            if not in_list:
+                html_lines.append('<ul class="digest-points">')
+                in_list = True
+            text, source_ids = extract_source_ids(line[2:].strip())
+            if not source_ids:
+                source_ids = infer_source_ids(text, items, current_section)
+            html_lines.append(f"  <li>{inline_markdown_to_html(text)}{source_chips_html(source_ids, lookup)}</li>")
+            if current_section:
+                section_counts[current_section] = section_counts.get(current_section, 0) + 1
 
-    parts: list[str] = []
-    if paragraphs:
-        parts.extend(f"<p>{inline_markdown_to_html(line)}</p>" for line in paragraphs)
-    if bullet_items:
-        parts.append('<ul class="digest-points">')
-        for bullet_item in bullet_items:
-            item_text, source_numbers = extract_source_numbers(bullet_item)
-            if not source_numbers and "](" not in bullet_item:
-                source_numbers = infer_source_numbers(item_text, items)
-            chips = source_chips_html(source_numbers, items)
-            parts.append(f"  <li>{inline_markdown_to_html(item_text)}{chips}</li>")
-        parts.append("</ul>")
-    return "\n".join(parts)
+    if in_list:
+        html_lines.append("</ul>")
+    return "\n".join(html_lines)
 
 
 def sources_to_html(items: list[NewsItem]) -> str:
     lines = ['<ul class="source-list">']
-    for item in items[:10]:
+    for item in items:
         title = html.escape(readable_title(item.title))
         url = html.escape(item.url, quote=True)
-        lines.append(f'  <li><a href="{url}">{title}</a></li>')
+        source = html.escape(item.source)
+        lines.append(f'  <li><a href="{url}">[{item.item_id}] {title}</a><span>{source}</span></li>')
     lines.append("</ul>")
     return "\n".join(lines)
 
 
-def build_post(summary: str, items: list[NewsItem], used_ai: bool) -> Path:
+def summary_line_text(text: str, items: list[NewsItem]) -> str:
+    source_names = sorted({clean_text(item.source) for item in items if clean_text(item.source)}, key=len, reverse=True)
+    for source in source_names:
+        text = re.sub(rf"^\*\*{re.escape(source)}:?\*\*\s*:?\s*", "", text, flags=re.I)
+    text = plain_text(text)
+    for source in source_names:
+        text = re.sub(rf"\s+-?\s*{re.escape(source)}$", "", text, flags=re.I).strip()
+    return clean_text(text)
+
+
+def one_line_summary(summary: str, items: list[NewsItem]) -> str:
+    _, teaser, _ = split_digest_header(summary)
+    if teaser:
+        return teaser[:157].rstrip() + "..." if len(teaser) > 160 else teaser
+    _, body = split_digest_title(summary)
+    for line in body.splitlines():
+        line = line.strip()
+        if line.startswith(("- ", "* ")):
+            text, _ = extract_source_ids(line[2:].strip())
+            text = summary_line_text(text, items)
+            return text[:157].rstrip() + "..." if len(text) > 160 else text
+    return "Daily Dumka and Jharkhand news brief"
+
+
+def build_post(summary: str, items: list[NewsItem], used_ai: bool, points_per_section: int) -> Path:
     POSTS.mkdir(parents=True, exist_ok=True)
     now = datetime.now(timezone.utc)
     now_ist = now.astimezone(IST)
-    post_path = POSTS / f"{now.date().isoformat()}-pib-digest.md"
-    source_list = sources_to_html(items)
+    post_path = POSTS / f"{now_ist.date().isoformat()}-dumka-brief.md"
+    title, _ = split_digest_title(summary)
+    teaser = one_line_summary(summary, items)
+    if generic_title(title):
+        title = clean_title(teaser)
     run_time = now_ist.strftime("%-I:%M%p")
     ai_note = f"Gemini Summary: {run_time}" if used_ai else f"Headline Digest: {run_time}"
-    teaser = one_line_summary(summary, items)
-    title = post_title(summary, items)
     content = f"""---
 layout: default
 title: {yaml_escape(title)}
@@ -460,20 +943,15 @@ run_time_ist: {yaml_escape(run_time)}
 ---
 
 <article class="digest-post">
-  <a class="back-link" href="{{{{ '/' | relative_url }}}}">PIB Brief</a>
+  <a class="back-link" href="{{{{ '/' | relative_url }}}}">{SITE_TITLE}</a>
   <p class="post-meta">{ai_note}</p>
 
-{summary_to_html(summary, items)}
-
-<section class="source-note">
-  <h2>Source</h2>
-  <p>Generated from <a href="{PIB_URL}">PIB regional news listing</a>.</p>
-</section>
+{summary_to_html(summary, items, points_per_section)}
 
 <details class="tp-sources">
-<summary>Headlines considered</summary>
+<summary>Sources considered</summary>
 
-{source_list}
+{sources_to_html(items)}
 
 </details>
 </article>
@@ -483,34 +961,34 @@ run_time_ist: {yaml_escape(run_time)}
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate the PIB English digest.")
-    parser.add_argument("--limit", type=int, default=12, help="Number of headlines to inspect.")
+    parser = argparse.ArgumentParser(description="Generate the Dumka and Jharkhand news brief.")
+    parser.add_argument("--config", default=SOURCE_CONFIG, help="Path to source YAML config.")
     parser.add_argument("--no-ai", action="store_true", help="Skip Gemini and write headline bullets.")
     args = parser.parse_args()
 
     read_env_file()
-    items = collect_items(limit=args.limit)
+    config = parse_simple_yaml(ROOT / args.config)
+    items = collect_news(config)
     if not items:
-        print("No PIB news items found.", file=sys.stderr)
+        print("No news items found.", file=sys.stderr)
         return 1
 
-    api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+    points = min(5, int(config.get("settings", {}).get("final_points_per_section", 5)))
+    api_key = os.environ.get("DUMKA_API_KEY")
     used_ai = bool(api_key and not args.no_ai)
     try:
-        summary = gemini_summary(items, api_key) if used_ai else fallback_summary(items)
+        summary = gemini_summary(items, api_key, points, config.get("settings", {})) if used_ai else fallback_summary(items, points, config.get("settings", {}))
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="replace")
         print(f"Gemini request failed: HTTP {exc.code}: {detail}", file=sys.stderr)
-        print("Writing fallback headline digest instead.", file=sys.stderr)
-        summary = fallback_summary(items)
+        summary = fallback_summary(items, points, config.get("settings", {}))
         used_ai = False
     except Exception as exc:
         print(f"Gemini summary failed: {exc}", file=sys.stderr)
-        print("Writing fallback headline digest instead.", file=sys.stderr)
-        summary = fallback_summary(items)
+        summary = fallback_summary(items, points, config.get("settings", {}))
         used_ai = False
 
-    post_path = build_post(summary, items, used_ai)
+    post_path = build_post(summary, items, used_ai, points)
     print(f"Wrote {post_path.relative_to(ROOT)}")
     return 0
 

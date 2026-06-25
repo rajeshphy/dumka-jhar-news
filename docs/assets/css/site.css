@@ -142,6 +142,18 @@ summary:focus-visible {
   display: none;
 }
 
+.section-title {
+  margin: 1.35rem 0 0.35rem;
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-weight: 780;
+  letter-spacing: -0.01em;
+}
+
+.section-title:first-of-type {
+  margin-top: 0.8rem;
+}
+
 .digest-points {
   margin: 0;
   padding: 0;
@@ -296,6 +308,12 @@ summary:focus-visible {
   font-size: 0.94rem;
   line-height: 1.45;
   color: var(--muted);
+}
+
+.source-list span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
 }
 
 pre {
