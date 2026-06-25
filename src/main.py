@@ -358,12 +358,29 @@ def title_fingerprint(title: str) -> str:
 
 
 def keyword_set(text: str) -> set[str]:
-    words = re.findall(r"[\w-]{4,}", text.lower(), flags=re.UNICODE)
+    normalized = normalize_match_text(text)
+    words = re.findall(r"[\w-]{4,}", normalized, flags=re.UNICODE)
     stopwords = {
         "about", "after", "from", "have", "into", "that", "their", "this", "with",
         "dumka", "jharkhand", "news", "latest", "today", "google", "india",
+        "court", "high", "case", "cases", "legal", "order", "orders", "updates",
+        "story", "stories", "live",
     }
     return {word for word in words if word not in stopwords}
+
+
+def normalize_match_text(text: str) -> str:
+    text = clean_text(text).lower()
+    replacements = {
+        r"\bhc\b": "high court",
+        r"\bcm\b": "chief minister",
+        r"\bgovt\b": "government",
+        r"\bfir\b": "first information report",
+        r"\bmcc\b": "model code conduct",
+    }
+    for pattern, replacement in replacements.items():
+        text = re.sub(pattern, replacement, text)
+    return text
 
 
 def similar_titles(a: str, b: str) -> bool:
@@ -380,7 +397,7 @@ def related_titles(a: str, b: str) -> bool:
     if not left or not right:
         return False
     overlap = len(left & right)
-    return overlap >= 3 and overlap / min(len(left), len(right)) >= 0.5
+    return overlap >= 3 and overlap / min(len(left), len(right)) >= 0.55
 
 
 def group_related_items(items: list[NewsItem]) -> list[list[NewsItem]]:
@@ -634,6 +651,9 @@ Rules:
 - For statewide news, prefer major governance, infrastructure, court, weather, education, health, safety, and public-interest items.
 - Treat each candidate group as one possible story. If a group has multiple headlines, synthesize them into one coherent point.
 - Merge repeated or similar headlines into one bullet and cite all relevant source ids from that group.
+- Do not merge unrelated court cases, accident cases, government decisions, or policy updates just because they share a broad theme.
+- Every source id at the end of a bullet must directly support that bullet's specific claim. Do not cite a source if it only shares a broad topic.
+- If a bullet combines two related claims, include only the source ids that support those exact claims.
 - Do not create separate bullets for small variants of the same story.
 - Keep every point factual and grounded in the supplied headlines only.
 - Prefer concrete public-interest news over routine promotional or vague social updates.
@@ -840,6 +860,52 @@ def source_chips_html(source_ids: list[str], lookup: dict[str, NewsItem]) -> str
     return f'<span class="source-chips">{" ".join(links)}</span>' if links else ""
 
 
+def validate_source_ids(text: str, source_ids: list[str], lookup: dict[str, NewsItem], section: str) -> list[str]:
+    valid: list[str] = []
+    for source_id in source_ids:
+        item = lookup.get(source_id)
+        if not item or item.section != section:
+            continue
+        if source_relevance_score(text, item) >= 2:
+            valid.append(source_id)
+    return valid
+
+
+def source_relevance_score(text: str, item: NewsItem) -> int:
+    bullet_words = keyword_set(plain_text(text))
+    title_words = keyword_set(item.title)
+    overlap = len(bullet_words & title_words)
+    score = overlap
+
+    bullet_text = normalize_match_text(text)
+    title_text = normalize_match_text(item.title)
+    phrase_pairs = (
+        ("palamu", "palamu"),
+        ("palamu", "पलामू"),
+        ("custodial", "custod"),
+        ("custodial", "कस्टडी"),
+        ("custodial", "मौत"),
+        ("custody", "custod"),
+        ("custody", "कस्टडी"),
+        ("acid attack", "acid attack"),
+        ("hemant soren", "hemant soren"),
+        ("model code", "model code"),
+        ("compensation", "compensation"),
+        ("judicial inquiry", "judicial"),
+        ("judicial inquiry", "न्यायिक जांच"),
+        ("jail guard", "kakshpal"),
+        ("jail guard", "कक्षपाल"),
+        ("recruitment", "भर्ती"),
+        ("shravani", "shravani"),
+        ("basukinath", "basukinath"),
+    )
+    for bullet_phrase, title_phrase in phrase_pairs:
+        if bullet_phrase in bullet_text and title_phrase in title_text:
+            score += 2
+
+    return score
+
+
 def inline_markdown_to_html(text: str) -> str:
     escaped = html.escape(text)
     return re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
@@ -877,6 +943,7 @@ def summary_to_html(summary: str, items: list[NewsItem], points_per_section: int
                 html_lines.append('<ul class="digest-points">')
                 in_list = True
             text, source_ids = extract_source_ids(line[2:].strip())
+            source_ids = validate_source_ids(text, source_ids, lookup, current_section)
             if not source_ids:
                 source_ids = infer_source_ids(text, items, current_section)
             html_lines.append(f"  <li>{inline_markdown_to_html(text)}{source_chips_html(source_ids, lookup)}</li>")
