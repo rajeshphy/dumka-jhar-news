@@ -187,7 +187,7 @@ def build_post(summary: str, items: list[NewsItem], used_ai: bool, points_per_se
     POSTS.mkdir(parents=True, exist_ok=True)
     now = datetime.now(timezone.utc)
     now_ist = now.astimezone(IST)
-    post_path = POSTS / f"{now.date().isoformat()}-dumka-jharkhand-brief.md"
+    post_path = POSTS / f"{now.date().isoformat()}-dumka-brief.md"
 
     try:
         run_time = now_ist.strftime("%-I:%M%p")
