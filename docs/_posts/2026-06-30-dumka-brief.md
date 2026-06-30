@@ -1,14 +1,14 @@
 ---
 layout: default
 title: "Dumka and Jharkhand News Brief"
-date: 2026-06-30T16:06:31.862754+00:00
+date: 2026-06-30T16:37:08.722431+00:00
 summary: "Infrastructure, road accidents, court updates, and governance from Dumka and Jharkhand"
-run_time_ist: "9:36PM"
+run_time_ist: "10:07PM"
 ---
 
 <article class="digest-post">
   <a class="back-link" href="{{ '/' | relative_url }}">Dumka Brief</a>
-  <p class="post-meta">Headline Digest: 9:36PM</p>
+  <p class="post-meta">Headline Digest: 10:07PM</p>
 
 <h2 class="section-title">Dumka and Nearby</h2>
 
