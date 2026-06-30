@@ -139,7 +139,7 @@ def summary_to_html(summary: str, items: list[NewsItem], points_per_section: int
             heading = clean_title(section_match.group(1))
             current_section = "local" if "dumka" in heading.lower() else "state"
             section_counts[current_section] = 0
-            html_lines.append(f"\n## {html.escape(heading)}\n")
+            html_lines.append(f'\n<h2 class="section-title">{html.escape(heading)}</h2>\n')
             html_lines.append('<ul class="digest-points">')
             in_list = True
             continue

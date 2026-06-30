@@ -6,6 +6,7 @@ settings:
   final_points_per_section: 5
   max_groups_per_section: 8
   min_group_score: 2
+  direct_link_workers: 8
 
   require_ist_today: true
   max_age_hours: 30
@@ -131,6 +132,11 @@ sources:
       type: rss
       weight: 4
       url: "https://news.google.com/rss/search?q=%E0%A4%A6%E0%A5%81%E0%A4%AE%E0%A4%95%E0%A4%BE%20%E0%A4%9D%E0%A4%BE%E0%A4%B0%E0%A4%96%E0%A4%82%E0%A4%A1%20when%3A1d&hl=hi-IN&gl=IN&ceid=IN:hi"
+
+    - name: Google News - Dumka Live News
+      type: rss
+      weight: 5
+      url: "https://news.google.com/rss/search?q=%28%22Dumka%20Live%20News%22%20OR%20%22Dumka%20Live%22%20OR%20%22%E0%A4%A6%E0%A5%81%E0%A4%AE%E0%A4%95%E0%A4%BE%20%E0%A4%B2%E0%A4%BE%E0%A4%87%E0%A4%B5%22%29%20when%3A1d&hl=hi-IN&gl=IN&ceid=IN:hi"
 
     # ======================================================
     # SANTHAL PARGANA — SECONDARY REGIONAL COVERAGE
