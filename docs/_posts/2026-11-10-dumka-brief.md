@@ -1,0 +1,49 @@
+---
+layout: default
+title: "Dumka and Jharkhand News Brief"
+date: 2026-11-10T02:57:01.883020+00:00
+summary: "Road accidents, infrastructure, and education from Dumka and Jharkhand"
+run_time_ist: "8:27AM"
+---
+
+<article class="digest-post">
+  <a class="back-link" href="{{ '/' | relative_url }}">Dumka Brief</a>
+  <p class="post-meta">Headline Digest: 8:27AM</p>
+
+<h2 class="section-title">Dumka and Nearby</h2>
+
+<ul class="digest-points">
+</ul>
+
+<h2 class="section-title">Jharkhand</h2>
+
+<ul class="digest-points">
+  <li><strong>News On AIR:</strong> Jharkhand: 7 killed in road accident; President and PM express grief - News On AIR<span class="source-chips"><a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxNY0N6bmxzcFZvS0E0Mk14b1k0T2RVTlBnT0ZFUnV0MXlFVXBmNEI1bHVWTFJzZlptSElvRnRIVWszQVZJUkVZemlmVm1fTHV5OHhicTZ0czVpWXktaEk3ZjdLUXhRV091NXR1UnhaY1NaRE05dDViZ1QyVlVnSUhUVU0zM0RjQmpISWZyUFA1RzdhU3Z3RmRR?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J1</a></span></li>
+  <li><strong>Head Topics:</strong> घोड़ा बना प्रशासनिक कार्रवाई का रोड़ा, झारखंड में पूर्व मंत्री की बेटी के कब्जे से खाली नहीं कराया जा सका आवास - ranchi exmla amba prasads horse delays govt residence eviction - Head Topics<span class="source-chips"><a href="https://news.google.com/rss/articles/CBMibkFVX3lxTFBTTVFqRzRZTHNlTW5VRXF6cmo4MFNSRXFFNlk4YVc3ZzU5OU1TQ3FieW1zQmpJWDNKRko5T3UyRDdZTXdHakIyS0FDSUJ5Nmo1ZmZPRTlid2o2a0hBRWhhTmVick9ONEZDZmFBaDlR?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J2</a> <a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxPeVFXcmhFcFJfbzh6ZGFmdnRjRzk0dGM4WURCeGdpLUpsTll4anNDekNwa2NmakEwSHhMbnlLNTVPcmRTY3pfYVZ1UEZDN3dvZFFkV3VDQkUyRWpnclNUZ0VxaWpjVUVGXzlhZnpPZlVKdGJvN1VqU3BsRGJQZzNkUXA2U1JYZDh2d3VrN3lfaWY3S3oxcjVYQ2hnNW94WG0xeEhobGJuMmZub0ZJNVBYV1pfTnNucFE?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J3</a></span></li>
+  <li><strong>The CSR Journal:</strong> Jharkhand में पुलिस और रेलवे सुरक्षा बल की कार्रवाई में 2 करोड़ गांजा बरामद, तस्करी नेटवर्क की जांच शुरू - The CSR Journal<span class="source-chips"><a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxQZnNPX1hGV3JCcGt6UkV2VWVfeGREMXk3ZS04UFBXajhHUjdUZU1qdTRsZWpaUVBicEhpakltaTIzbU1nMUFxQzhhMWprTVR3MzlMZU94c3pYTE5pbnZ2MkItcVdOUTRzRy1lRWtDbkk2eWkxbjJjaEVGNEQwR2M2WmtTU2g5bjAxWk9Db3l0eE5KNzg?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J4</a></span></li>
+  <li><strong>Prabhat Khabar:</strong> Chhath School Holiday 2026: छठ पर बिहार, झारखंड और यूपी में कितने दिन बंद रहेंगे स्कूल? यहां जानें छुट्टियों का अपडेट - Prabhat Khabar<span class="source-chips"><a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxNdlNlVEo0UktUMTNsZ2FTLVA2c3lFbWRnR2JXOUp6T0dSenZNLWhoaEJoM250MDhTeHZpTlIwWjdhaWJRNFFsMzBVZVdPYllIV0dZeWZkUWNWaVcxTnpnNVZxRFBPdVZDVXpoU3FzMEZ1QnNOc0tNdEZSZ0hkLU9nLTN6VFo2VFJiX0VOcVlLT2JQOTVYVG1YZEFPS1I4SS1CWW9WWGFKZFU0MmF3OGVSZVVaOG5tdmRNQnUzcUJn?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J5</a></span></li>
+  <li><strong>Prabhat Khabar:</strong> रांची में ट्यूशन से लौट रही छात्रा से सामूहिक दुष्कर्म का आरोप, विरोध करने पर मारपीट; जांच में जुटी पुलिस - Prabhat Khabar<span class="source-chips"><a href="https://news.google.com/rss/articles/CBMi3AFBVV95cUxNZ3NiRFo5RWpSS1JaQXQ3a0FZVFVabW9kZVZrT0gtM2NnbE1Oa21FV2ZlZFpDbG5TcV93RVNhWDBobHZPQlY3bUNfWmVZWk84SFRPc1BYNlk1NVAzd2FKQUtzVkJ6VHFtR1hLdkRzRlJHdHNqdEVvR2JxX1lyU2hZeTVSVHhPVzEzbEh3T2xhaElONjI2NkRHWS1GTmhucVZ3ejRNSldGMUs5enQwS0o2Zi1McFNJejhBLXhlallNdGtJLTFwd0twWVlxTHRVcl9iUzE0b3ktTENnVmhX?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J6</a></span></li>
+</ul>
+
+<section class="source-note">
+  <h2>Source</h2>
+  <p>Generated from configured local and Jharkhand RSS/news sources.</p>
+</section>
+
+<details class="tp-sources">
+<summary>Headlines considered</summary>
+
+<ul class="source-list">
+  <li><a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxNY0N6bmxzcFZvS0E0Mk14b1k0T2RVTlBnT0ZFUnV0MXlFVXBmNEI1bHVWTFJzZlptSElvRnRIVWszQVZJUkVZemlmVm1fTHV5OHhicTZ0czVpWXktaEk3ZjdLUXhRV091NXR1UnhaY1NaRE05dDViZ1QyVlVnSUhUVU0zM0RjQmpISWZyUFA1RzdhU3Z3RmRR?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J1: Jharkhand: 7 killed in road accident; President and PM express grief - News On AIR</a> <span class="source-name">News On AIR</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMibkFVX3lxTFBTTVFqRzRZTHNlTW5VRXF6cmo4MFNSRXFFNlk4YVc3ZzU5OU1TQ3FieW1zQmpJWDNKRko5T3UyRDdZTXdHakIyS0FDSUJ5Nmo1ZmZPRTlid2o2a0hBRWhhTmVick9ONEZDZmFBaDlR?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J2: घोड़ा बना प्रशासनिक कार्रवाई का रोड़ा, झारखंड में पूर्व मंत्री की बेटी के कब्जे से खाली नहीं कराया जा सका आवास - ranchi exmla amba prasads horse delays govt residence eviction - Head Topics</a> <span class="source-name">Head Topics</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxPeVFXcmhFcFJfbzh6ZGFmdnRjRzk0dGM4WURCeGdpLUpsTll4anNDekNwa2NmakEwSHhMbnlLNTVPcmRTY3pfYVZ1UEZDN3dvZFFkV3VDQkUyRWpnclNUZ0VxaWpjVUVGXzlhZnpPZlVKdGJvN1VqU3BsRGJQZzNkUXA2U1JYZDh2d3VrN3lfaWY3S3oxcjVYQ2hnNW94WG0xeEhobGJuMmZub0ZJNVBYV1pfTnNucFE?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J3: घोड़ा बना प्रशासनिक कार्रवाई का रोड़ा, झारखंड में पूर्व मंत्री की बेटी के कब्जे से खाली नहीं कराया जा सका आवास - ranchi exmla amba prasads horse delays govt residence eviction - Jagran</a> <span class="source-name">Jagran</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxQZnNPX1hGV3JCcGt6UkV2VWVfeGREMXk3ZS04UFBXajhHUjdUZU1qdTRsZWpaUVBicEhpakltaTIzbU1nMUFxQzhhMWprTVR3MzlMZU94c3pYTE5pbnZ2MkItcVdOUTRzRy1lRWtDbkk2eWkxbjJjaEVGNEQwR2M2WmtTU2g5bjAxWk9Db3l0eE5KNzg?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J4: Jharkhand में पुलिस और रेलवे सुरक्षा बल की कार्रवाई में 2 करोड़ गांजा बरामद, तस्करी नेटवर्क की जांच शुरू - The CSR Journal</a> <span class="source-name">The CSR Journal</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxNdlNlVEo0UktUMTNsZ2FTLVA2c3lFbWRnR2JXOUp6T0dSenZNLWhoaEJoM250MDhTeHZpTlIwWjdhaWJRNFFsMzBVZVdPYllIV0dZeWZkUWNWaVcxTnpnNVZxRFBPdVZDVXpoU3FzMEZ1QnNOc0tNdEZSZ0hkLU9nLTN6VFo2VFJiX0VOcVlLT2JQOTVYVG1YZEFPS1I4SS1CWW9WWGFKZFU0MmF3OGVSZVVaOG5tdmRNQnUzcUJn?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J5: Chhath School Holiday 2026: छठ पर बिहार, झारखंड और यूपी में कितने दिन बंद रहेंगे स्कूल? यहां जानें छुट्टियों का अपडेट - Prabhat Khabar</a> <span class="source-name">Prabhat Khabar</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMi3AFBVV95cUxNZ3NiRFo5RWpSS1JaQXQ3a0FZVFVabW9kZVZrT0gtM2NnbE1Oa21FV2ZlZFpDbG5TcV93RVNhWDBobHZPQlY3bUNfWmVZWk84SFRPc1BYNlk1NVAzd2FKQUtzVkJ6VHFtR1hLdkRzRlJHdHNqdEVvR2JxX1lyU2hZeTVSVHhPVzEzbEh3T2xhaElONjI2NkRHWS1GTmhucVZ3ejRNSldGMUs5enQwS0o2Zi1McFNJejhBLXhlallNdGtJLTFwd0twWVlxTHRVcl9iUzE0b3ktTENnVmhX?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J6: रांची में ट्यूशन से लौट रही छात्रा से सामूहिक दुष्कर्म का आरोप, विरोध करने पर मारपीट; जांच में जुटी पुलिस - Prabhat Khabar</a> <span class="source-name">Prabhat Khabar</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMi4gFBVV95cUxQRTNheXRHR1pfb2poQm0xNmJxMlVfUWRrN3FyNndFYWluTEJxbHU1SHFJTzE4aHB6eUZHV2ViWHZWS205UEdjY0RjUjh3OHdqMTdEZjkteElOY291SDlCUm9maWpGVnBkVm9YMWxBaDZOTFZoRUxjUmV5cndiMVVLb3ZycVdrSTFYaG16cFVDN1RNSE0xTE9wcFpsXzZuV0ctaDh0VFNBRENkVG53Nm5JZHhNSmxneEk3M1ROOC1aZGpZalNaQWNMMWUwS0pMS1N3YkJIbGhfTUhXQ0Zvd3BodWVn?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J7: Jobs News : रांची में 10वीं पास के लिए नौकरी, फसल रक्षक के 21 पदों पर भर्ती; 14 नवंबर तक मौका - Prabhat Khabar</a> <span class="source-name">Prabhat Khabar</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMi3wFBVV95cUxQZS0xMVJzRjY2azhPWUpTekxsdDRjNk9NQ0Fic2hZUHRXeG1SR2hKY015aGYyS0FjYW8yeDVuYmVjLUd5a3lXY0JLVXZmUXJ3ZXlLaFQ3X3JhTlFmWDR4Mnk0blNwOE96RWdMMVFrcGFJdUI3S3VmOG43OVg2cDNrZ3VVRG55UmJxdEg5ZU9YSVpGNy00ZXBJX2FmR0Zid2pZTXhvTUh6ZERxZUc2bFhwNzlDLVRtZDktaFBETENmYXFsejMyQmg4RnhadlBZSnIxbXJSMXE0YVFIR1NwRVNB0gHkAUFVX3lxTE1EZlNBS2N0SXVNd08tVmdjZjh6Q01ibU9oSUJrU1ZGOWRyZEF5QkNYSHdpQTY0VXJ6VEhTSzF6WjY1RkExbm1xb3YxV0FrZG9SRUNyeXIwTExjTzJTYVpFbWxvS3hERVQ5Y1FGckoxQTVyUGczOTZEUnJvYXplTDVCLUZaVVBqb1pINHhYVC00c3hjelZ5N3RyMEJUTnJORzBzX3ZNaUpYWVQ4WXpIOGVyWHk4RjctOGZoeG9rSlF5MlNYMEUxUVlQZ3otak92dVZaUzdVOHJRT0REVG5KMmtYOVlJUA?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J8: पटना-औरंगाबाद राजमार्ग फोरलेन बनेगा, केंद्र सरकार ने दी मंजूरी; झारखंड जाना भी होगा आसान - Hindustan</a> <span class="source-name">Hindustan</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMi0wFBVV95cUxPM3ZHMUNUN3RIbG53elpkcVpaNFhVeGk4ZXRzdUhVdl9PYVpmUmlYU2RuV0VWejZhSHFscEFlemthZy1aUVgtYUd1LWR4eVMyYWtwMlA1R0w4c1MwcF9TYW9INDlJcFNJdzMtY0ZCLTdQTElnb1p4SVNRQjBhZ0t5YzkyMktYaG14a0p4V2ZJS3lIZXZjNGp0TjVFcVlyNV9UUkcycllkVmRQQk5QUHRZbE4xRnNZazdiX1RaVU1OVFBKWlNvVU5aYkV3YnQ3VGR2NlNj0gHYAUFVX3lxTE1FTFlVX3B0ZXp3SG1KbzBjaVJuUjI4UzJZQjFUUnNpcDMtYngyV3p6VjhnWlRESmlBd2xhVEdZS0hMbmJTbGVsTVM4ZGlURjJKbGVITnAwaWxsUDVpQWtjR2FSQ2dZQkJROHB2T29ReWwwY0RZRkZBdWNZQ0xra2VRWUs3cjNoTnFSck9QdXJvLVN6a3VtZjI0TGRQbF95WTJjckpwQzc3TVE1cG1VdHlINXNWejh5SFVuN29vdlZfY3hOSmdTRnJzNmRjYkxJOWVTRndxT0o5Mg?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J9: झारखंड: बाबूलाल मरांडी ने सरकार को लौटाई जर्जर बुलेटप्रूफ गाड़ी, बोले- मेरी सुरक्षा से क्यों हो रहा खिलवाड़? - Amar Ujala</a> <span class="source-name">Amar Ujala</span></li>
+</ul>
+
+</details>
+</article>
