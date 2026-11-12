@@ -1,0 +1,50 @@
+---
+layout: default
+title: "Dumka and Jharkhand News Brief"
+date: 2026-11-12T02:01:09.651164+00:00
+summary: "Weather alerts, road accidents, court updates, and health services from Dumka and Jharkhand"
+run_time_ist: "7:31AM"
+---
+
+<article class="digest-post">
+  <a class="back-link" href="{{ '/' | relative_url }}">Dumka Brief</a>
+  <p class="post-meta">Headline Digest: 7:31AM</p>
+
+<h2 class="section-title">Dumka and Nearby</h2>
+
+<ul class="digest-points">
+  <li><strong>Prabhat Khabar:</strong> झारखंड के 7 जिलों में बन रहे आयुष अस्पताल, दुमका के नए धन्वंतरी अस्पताल में शुरू हुई ओपीडी सेवा - Prabhat Khabar<span class="source-chips"><a href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxPSHRqbVo2dmpxNFl4MTh4VXhtYy1EemNZVWw1MUFrM2h5c2NlR1V0Z0c4aXJoaU1fUi1RZ1VGRjJHQzBLaXFCdjdNa3lham1BdVROWHgyRUVXbG9idU51TDE2U3lMXy1wdjRhODVYWE5EWUdwUWQ1UkNHa211Sm5KbWh2XzF4R0pRZjQxVkFDaUdfdDVGUE44SWlHVE5ISFc3SXM3bDcxZWR1UVE?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">L1</a></span></li>
+</ul>
+
+<h2 class="section-title">Jharkhand</h2>
+
+<ul class="digest-points">
+  <li><strong>Head Topics:</strong> Jharkhand Weather: झारखंड में मौसम का डबल गेम! छठ पर ठिठुराएगी ठंड, 13 डिग्री तक गिरेगा पारा - jharkhand weather update cold alert in ranchi temperature drop to 13 degree in chhath puja - Head Topics<span class="source-chips"><a href="https://news.google.com/rss/articles/CBMibEFVX3lxTE1JdUwxU3luVVBocll6WGlncUV3TXYwNU1CMmR2blZqT1JwdUM0OG5lSlpiank1NWdVOEswS2duWnIzU1BhX0NfQXBScmlSR1hQTzNmWHpYTEhKTTB5QjFZMXJtQVdPZDNmajdTWQ?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J1</a></span></li>
+  <li><strong>ETV Bharat:</strong> NCW Chief Slams Jharkhand Govt Over &#x27;Non-Cooperative&#x27; Stance In Nisha Bhagat Death Probe - ETV Bharat<span class="source-chips"><a href="https://news.google.com/rss/articles/CBMi0gFBVV95cUxQbTJqLS1abHA2TURBY2FFQTJick4yQjFMTW4xd015bEQ3cFpSSkktZ0VHR21qNDNZYTdhVnVsOFYwZjNhaGpPSzU3bHBBbS1kaFluTEhJd1dfZGJDYXE0bUQySFlaeEk3SFBnSWF6UzNSV0hvcVRlVm1MMTllZ25IREdQOHBnbWQ2TTNBaEV6UkNrdHFSWXlldDRDVEREY2JWVC1PREFxUUpPSlp2eUcyaGI0VVZ4NHdyTFk4V2RNd3hSM3haWnAtM1JyelNkZ3EzdnfSAdcBQVVfeXFMTWFsTnNDNkxwcUJ3UUxidVBLRHJOMzVSY21RUXVQMDY0QkpZekRZOGNLZTY2dkh0QTc5UmtNWUdVTHV0RUJmYUZRbWYxQWZlUXNkSVlvYmdmbUZhR2VaQXFLa0paU2hEQTFxMzRFclEzc3lQdWo4YjBrTGJVbmpkak9kTWViV2NhdnBGVmlra1c0T1dMTkkyTjBYa3d4TDVHUVVqbEltV3NNTjNNbjN6VDhPNlZPT0ptLUl3aV9jcjhBRjhDRWFWOXprRHdVamF2eV85MDRJLWs?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J2</a></span></li>
+  <li><strong>Punjab News Express:</strong> Accusing wife of adultery over phone calls amounts to mental cruelty, rules Jharkhand High Court - Punjab News Express<span class="source-chips"><a href="https://news.google.com/rss/articles/CBMi5gFBVV95cUxOUDFRY3NCaDlxbFpZc0gzUFE3b2x4V3lLTTJmV090aTRodWhxUWpxbEt4MzN1X0xTOThvQnFUY2lvT0poaExBWlFDbGFKaU5EcHhTNWRQRHlEWmxfMmFPOGwxZXRQSkl6blo2dDY4WExGNDJsQjlJaVhrYWVySGd5eWllZHUxQjhkb0xJZzFtY0VpVzBTbjh3QmlpOXBaZXE3U1A2M2EwUXZsVVN6S2tlMVBhcm91UXFFZkJkUzVETnc3a1E5d3lMOGR2RHNER0V6bGFEUDRBUTd1QWJuWEY4T2xlTEFvQQ?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J3</a></span></li>
+  <li><strong>Prabhat Khabar:</strong> Jharkhand Health Insurance News: 61.50 लाख परिवारों को समूह स्वास्थ्य बीमा से जोड़ने की तैयारी - Prabhat Khabar<span class="source-chips"><a href="https://news.google.com/rss/articles/CBMilAFBVV95cUxPRWFQWHBFczd3Q2VoNHFIMmZUSGdCUWtWNDd4M3Y4QVZsa0RWcTc1eUdFMkF1M09xd1lpUDVwUVVYbEY0WFhVR1J6ZTJ0RDZpemducUQzZnlzaGVzZnd3RU4wOW5WNGdzZkNmOVA0WC1mTVV0TmRwem1jUDB3blFrcUdzMTUxd1c4Nnh4TEd1RVBpMjlt?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J4</a></span></li>
+  <li><strong>Jagran:</strong> Jharkhand Weather: झारखंड में मौसम का डबल गेम! छठ पर ठिठुराएगी ठंड, 13 डिग्री तक गिरेगा पारा - Jagran<span class="source-chips"><a href="https://news.google.com/rss/articles/CBMi3AFBVV95cUxQTnlGcUlrUWpmRUlsLVNNaXVDN3plR083clBJZ2lkVHQzRWtmeWRIV2txZXB2S051X0d5aGdPVDlwUno2WG9fSFpkZGtwYzhwNW5DZGxuN2l5V1pNM3lhMWN2VHRmajByWElaeU94N2Y3TEdld3dWN0x2TFlPRjJYNV9xaWF4cmVEdGtHeHFScEZzV2NCRDFFUHFxUzItdlVVUHBkZTlXeG9KcDlScXdMRjdXdW5lcWF1ckxGTERPX2w4SWxvNkdpU2o0RnVza1pjUkZKcTN0Qk9PaUpE?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J5</a></span></li>
+</ul>
+
+<section class="source-note">
+  <h2>Source</h2>
+  <p>Generated from configured local and Jharkhand RSS/news sources.</p>
+</section>
+
+<details class="tp-sources">
+<summary>Headlines considered</summary>
+
+<ul class="source-list">
+  <li><a href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxPSHRqbVo2dmpxNFl4MTh4VXhtYy1EemNZVWw1MUFrM2h5c2NlR1V0Z0c4aXJoaU1fUi1RZ1VGRjJHQzBLaXFCdjdNa3lham1BdVROWHgyRUVXbG9idU51TDE2U3lMXy1wdjRhODVYWE5EWUdwUWQ1UkNHa211Sm5KbWh2XzF4R0pRZjQxVkFDaUdfdDVGUE44SWlHVE5ISFc3SXM3bDcxZWR1UVE?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">L1: झारखंड के 7 जिलों में बन रहे आयुष अस्पताल, दुमका के नए धन्वंतरी अस्पताल में शुरू हुई ओपीडी सेवा - Prabhat Khabar</a> <span class="source-name">Prabhat Khabar</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMibEFVX3lxTE1JdUwxU3luVVBocll6WGlncUV3TXYwNU1CMmR2blZqT1JwdUM0OG5lSlpiank1NWdVOEswS2duWnIzU1BhX0NfQXBScmlSR1hQTzNmWHpYTEhKTTB5QjFZMXJtQVdPZDNmajdTWQ?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J1: Jharkhand Weather: झारखंड में मौसम का डबल गेम! छठ पर ठिठुराएगी ठंड, 13 डिग्री तक गिरेगा पारा - jharkhand weather update cold alert in ranchi temperature drop to 13 degree in chhath puja - Head Topics</a> <span class="source-name">Head Topics</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMi0gFBVV95cUxQbTJqLS1abHA2TURBY2FFQTJick4yQjFMTW4xd015bEQ3cFpSSkktZ0VHR21qNDNZYTdhVnVsOFYwZjNhaGpPSzU3bHBBbS1kaFluTEhJd1dfZGJDYXE0bUQySFlaeEk3SFBnSWF6UzNSV0hvcVRlVm1MMTllZ25IREdQOHBnbWQ2TTNBaEV6UkNrdHFSWXlldDRDVEREY2JWVC1PREFxUUpPSlp2eUcyaGI0VVZ4NHdyTFk4V2RNd3hSM3haWnAtM1JyelNkZ3EzdnfSAdcBQVVfeXFMTWFsTnNDNkxwcUJ3UUxidVBLRHJOMzVSY21RUXVQMDY0QkpZekRZOGNLZTY2dkh0QTc5UmtNWUdVTHV0RUJmYUZRbWYxQWZlUXNkSVlvYmdmbUZhR2VaQXFLa0paU2hEQTFxMzRFclEzc3lQdWo4YjBrTGJVbmpkak9kTWViV2NhdnBGVmlra1c0T1dMTkkyTjBYa3d4TDVHUVVqbEltV3NNTjNNbjN6VDhPNlZPT0ptLUl3aV9jcjhBRjhDRWFWOXprRHdVamF2eV85MDRJLWs?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J2: NCW Chief Slams Jharkhand Govt Over &#x27;Non-Cooperative&#x27; Stance In Nisha Bhagat Death Probe - ETV Bharat</a> <span class="source-name">ETV Bharat</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMi5gFBVV95cUxOUDFRY3NCaDlxbFpZc0gzUFE3b2x4V3lLTTJmV090aTRodWhxUWpxbEt4MzN1X0xTOThvQnFUY2lvT0poaExBWlFDbGFKaU5EcHhTNWRQRHlEWmxfMmFPOGwxZXRQSkl6blo2dDY4WExGNDJsQjlJaVhrYWVySGd5eWllZHUxQjhkb0xJZzFtY0VpVzBTbjh3QmlpOXBaZXE3U1A2M2EwUXZsVVN6S2tlMVBhcm91UXFFZkJkUzVETnc3a1E5d3lMOGR2RHNER0V6bGFEUDRBUTd1QWJuWEY4T2xlTEFvQQ?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J3: Accusing wife of adultery over phone calls amounts to mental cruelty, rules Jharkhand High Court - Punjab News Express</a> <span class="source-name">Punjab News Express</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMilAFBVV95cUxPRWFQWHBFczd3Q2VoNHFIMmZUSGdCUWtWNDd4M3Y4QVZsa0RWcTc1eUdFMkF1M09xd1lpUDVwUVVYbEY0WFhVR1J6ZTJ0RDZpemducUQzZnlzaGVzZnd3RU4wOW5WNGdzZkNmOVA0WC1mTVV0TmRwem1jUDB3blFrcUdzMTUxd1c4Nnh4TEd1RVBpMjlt?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J4: Jharkhand Health Insurance News: 61.50 लाख परिवारों को समूह स्वास्थ्य बीमा से जोड़ने की तैयारी - Prabhat Khabar</a> <span class="source-name">Prabhat Khabar</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMi3AFBVV95cUxQTnlGcUlrUWpmRUlsLVNNaXVDN3plR083clBJZ2lkVHQzRWtmeWRIV2txZXB2S051X0d5aGdPVDlwUno2WG9fSFpkZGtwYzhwNW5DZGxuN2l5V1pNM3lhMWN2VHRmajByWElaeU94N2Y3TEdld3dWN0x2TFlPRjJYNV9xaWF4cmVEdGtHeHFScEZzV2NCRDFFUHFxUzItdlVVUHBkZTlXeG9KcDlScXdMRjdXdW5lcWF1ckxGTERPX2w4SWxvNkdpU2o0RnVza1pjUkZKcTN0Qk9PaUpE?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J5: Jharkhand Weather: झारखंड में मौसम का डबल गेम! छठ पर ठिठुराएगी ठंड, 13 डिग्री तक गिरेगा पारा - Jagran</a> <span class="source-name">Jagran</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMifkFVX3lxTFBkMW9ienI4NXB0NjRrVHdnazlQQll6U2VWQlNRTWNFOXZYbzdBRF9fbDFsd25RV2Jra2w3M3R0RkhQbUxtendCLVJaVWJxYWdkN21ObWlubnRjZWE3cFAyemdqTVVGZGlpR0ttR3ZLbC1ZZklfSjRSRkhPUkZZdw?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J6: NCW Ranchi Rape Case: Panel Seeks Swift Arrest - Urban Acres</a> <span class="source-name">Urban Acres</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxQcDNkaUxVbGxnUU5NVUVWY3JNSElqS0FoSTF6NmUya2RlWU1zZGFBTEF5U1NONnVjRnoyaHhZTDZYbGhqQVhOeXNDRnotYXYwSTBTOGs2WEs4NGlPVmhjZE9YeXRYOEMtU0tnQzB4Y1UxbkNJTFVwV0JxTkYxUTNFNTBTbzFfMXZTZTZpU2RmclpOLTJFYTFSd20wTmRMcnJnNER6QS11MWpTZ9IBrwFBVV95cUxPalhoZ3FRR3MwaHVTZVp5NjB6NUM5dDgwUjZRVlBLQnFuUlZGZ2xJN3g3ck5xYmZVMDMxZHpSZllaaXU0TmI0Zl9wd1BkdkFodGtRZHJsRW9odldIYVVBaVlFWHNsR2gyelhMVXJUMzdpOXdCSUplQmhVZmlPTFhEaDREYzhBNDhEdU9neExUY0pfMWMzV3VrSDladVlDTnJGbzJEVHh5eGEwNVVWNXA4?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J7: जमशेदपुर बना झारखंड का सबसे स्वच्छ शहर, लेकिन एक झटका भी - Hindustan</a> <span class="source-name">Hindustan</span></li>
+  <li><a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxNOVdBdUtRODUxZnBDN2g0SWZJSHVBMVN1QW5EZW9wTy05UTJvZUZ0MV9EUFZ6VXpuQ1hfSXR1S3BWRDNLSzdaQkNSdVdJNnVXMTF3SFBRSFBERnllN0JHNFZ2UzhUdUl2QktQSEpvOEo2dFI3UlFsbXJPTWVETnFndVhuTEZBVXA2REI5NDdiY2JnMzU2WE5r?oc=5&amp;hl=en-US&amp;gl=US&amp;ceid=US%3Aen" target="_blank" rel="noopener noreferrer">J8: बिरसा मुंडा जयंती पर बोकारो में विशेष आयोजन - Prabhat Khabar</a> <span class="source-name">Prabhat Khabar</span></li>
+</ul>
+
+</details>
+</article>
